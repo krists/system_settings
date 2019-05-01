@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2018_10_07_125347) do
-
   create_table "system_settings_settings", force: :cascade do |t|
     t.string "name", null: false
     t.string "type", null: false
@@ -22,5 +21,4 @@ ActiveRecord::Schema.define(version: 2018_10_07_125347) do
     t.index ["name"], name: "index_system_settings_settings_on_name", unique: true
     t.index ["type"], name: "index_system_settings_settings_on_type"
   end
-
 end

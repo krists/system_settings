@@ -14,7 +14,8 @@ Gem::Specification.new do |s|
   s.license = "MIT"
   s.files = Dir["{app,config,db,lib}/**/*", "frontend/build/**/*", "MIT-LICENSE", "README.md"]
   s.add_dependency "rails", "~> 5.2.1"
-  s.add_development_dependency "pry"
-  s.add_development_dependency "sqlite3", "~> 1.3.13"
   s.add_development_dependency "i18n-debug"
+  s.add_development_dependency "pry"
+  s.add_development_dependency "rubocop"
+  s.add_development_dependency "sqlite3", "~> 1.3.13"
 end

@@ -1,7 +1,7 @@
 module SystemSettings
   class ListOfIntegersValidator < ActiveModel::EachValidator
-    LIST_REGEXP = /\A[+-]?\d+(?:; *[+-]?\d+)*\z/
-    SINGLE_REGEXP = /\A[+-]?\d+\z/
+    LIST_REGEXP = /\A[+-]?\d+(?:; *[+-]?\d+)*\z/.freeze
+    SINGLE_REGEXP = /\A[+-]?\d+\z/.freeze
 
     def validate_each(record, attr_name, value)
       came_from_user = :"#{attr_name}_came_from_user?"
@@ -25,7 +25,7 @@ module SystemSettings
 
     def record_attribute_changed_in_place?(record, attr_name)
       record.respond_to?(:attribute_changed_in_place?) &&
-          record.attribute_changed_in_place?(attr_name.to_s)
+        record.attribute_changed_in_place?(attr_name.to_s)
     end
 
     def matches_list_of_integers_regexp?(raw_value)

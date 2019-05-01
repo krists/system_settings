@@ -1,0 +1,63 @@
+AllCops:
+  TargetRubyVersion: 2.5
+  DisplayCopNames: true
+  Exclude:
+    - 'frontend/**/*'
+
+StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+Documentation:
+  Enabled: false
+LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+Metrics/AbcSize:
+  Max: 25
+
+Style/HashSyntax:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/StringLiteralsInInterpolation:
+  Enabled: false
+Layout/LeadingCommentSpace:
+  Enabled: false
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Layout/AlignHash:
+  Enabled: false
+Layout/ExtraSpacing:
+  Enabled: false
+Layout/AlignParameters:
+  Enabled: false
+Style/EachWithObject:
+  Enabled: false
+Style/NumericLiterals:
+  Enabled: false
+Layout/SpaceBeforeBlockBraces:
+  Enabled: false
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+Style/ParallelAssignment:
+  Enabled: false
+Bundler/OrderedGems:
+  Enabled: false
+Style/WordArray:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/DateTime:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false

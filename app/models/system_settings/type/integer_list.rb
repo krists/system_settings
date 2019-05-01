@@ -20,11 +20,17 @@ module SystemSettings
       def cast_value(value)
         case value
         when Array
-          value.map { |v| v.to_i rescue nil }
+          value.map do |v|
+            v.to_i
+          rescue StandardError
+            nil
+          end
         when String
-          value.split(SEPARATOR).map { |v| v.to_i rescue nil }
-        else
-          nil
+          value.split(SEPARATOR).map do |v|
+            v.to_i
+          rescue StandardError
+            nil
+          end
         end
       end
     end

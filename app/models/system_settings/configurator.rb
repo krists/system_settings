@@ -1,6 +1,5 @@
 module SystemSettings
   class Configurator
-
     class << self
       def from_file(path)
         file_content = File.read(path)
@@ -52,7 +51,7 @@ module SystemSettings
           end
         end
       else
-        $stderr.puts "SystemSettings: Settings table has not been created!"
+        warn "SystemSettings: Settings table has not been created!"
         false
       end
     end

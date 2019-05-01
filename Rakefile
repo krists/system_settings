@@ -1,31 +1,31 @@
 begin
-  require 'bundler/setup'
+  require "bundler/setup"
 rescue LoadError
-  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
+  puts "You must `gem install bundler` and `bundle install` to run rake tasks"
 end
 
-require 'rdoc/task'
+require "rdoc/task"
 
 RDoc::Task.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'SystemSettings'
-  rdoc.options << '--line-numbers'
-  rdoc.rdoc_files.include('README.md')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+  rdoc.rdoc_dir = "rdoc"
+  rdoc.title    = "SystemSettings"
+  rdoc.options << "--line-numbers"
+  rdoc.rdoc_files.include("README.md")
+  rdoc.rdoc_files.include("lib/**/*.rb")
 end
 
 APP_RAKEFILE = File.expand_path("test/dummy/Rakefile", __dir__)
-load 'rails/tasks/engine.rake'
+load "rails/tasks/engine.rake"
 
-load 'rails/tasks/statistics.rake'
+load "rails/tasks/statistics.rake"
 
-require 'bundler/gem_tasks'
+require "bundler/gem_tasks"
 
-require 'rake/testtask'
+require "rake/testtask"
 
 Rake::TestTask.new(:test) do |t|
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
+  t.libs << "test"
+  t.pattern = "test/**/*_test.rb"
   t.verbose = false
 end
 
@@ -45,24 +45,20 @@ task :build_frontend do
     stdin.close_write
 
     stdout_thread = Thread.new do
-      begin
-        until stdout.eof?
-          line = stdout.gets
-          tagged_logger.tagged("YARN", "STDOUT") { logger.debug(line.rstrip) }
-        end
-      rescue IOError
+      until stdout.eof?
+        line = stdout.gets
+        tagged_logger.tagged("YARN", "STDOUT") { logger.debug(line.rstrip) }
       end
+    rescue IOError
     end
     stdout_thread.abort_on_exception = true
 
     stderr_thread = Thread.new do
-      begin
-        until stderr.eof?
-          line = stderr.gets
-          tagged_logger.tagged("YARN", "STDERR") { logger.debug(line.rstrip) }
-        end
-      rescue IOError
+      until stderr.eof?
+        line = stderr.gets
+        tagged_logger.tagged("YARN", "STDERR") { logger.debug(line.rstrip) }
       end
+    rescue IOError
     end
     stderr_thread.abort_on_exception = true
 
