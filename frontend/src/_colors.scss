@@ -1,0 +1,57 @@
+$blackColor: rgb(0, 0, 0);
+$whiteColor: rgb(255, 255, 255);
+$backgroundColor: $whiteColor;
+$primaryTextColor: rgb(35, 54, 86);
+$errorTextColor: rgb(255, 54, 86);
+$linkTextColor: $primaryTextColor;
+
+$gray05: mix($blackColor, $whiteColor, 5%);
+$gray10: mix($blackColor, $whiteColor, 10%);
+$gray15: mix($blackColor, $whiteColor, 15%);
+$gray20: mix($blackColor, $whiteColor, 20%);
+$gray25: mix($blackColor, $whiteColor, 25%);
+$gray30: mix($blackColor, $whiteColor, 30%);
+$gray35: mix($blackColor, $whiteColor, 35%);
+$gray40: mix($blackColor, $whiteColor, 40%);
+$gray45: mix($blackColor, $whiteColor, 45%);
+$gray50: mix($blackColor, $whiteColor, 50%);
+$gray55: mix($blackColor, $whiteColor, 55%);
+$gray60: mix($blackColor, $whiteColor, 60%);
+$gray65: mix($blackColor, $whiteColor, 65%);
+$gray70: mix($blackColor, $whiteColor, 70%);
+$gray75: mix($blackColor, $whiteColor, 75%);
+$gray80: mix($blackColor, $whiteColor, 80%);
+$gray85: mix($blackColor, $whiteColor, 85%);
+$gray90: mix($blackColor, $whiteColor, 90%);
+$gray95: mix($blackColor, $whiteColor, 95%);
+
+
+@mixin button-colors($textColor, $backgroundColor: transparent){
+  color: $textColor;
+  background-color: $backgroundColor;
+  transition: background-color 0.1s ease-in-out;
+  outline: none;
+
+  &:focus, &:hover {
+    background-color: mix($blackColor, $backgroundColor, 15%);
+  }
+
+  &:active {
+    background-color: mix($blackColor, $backgroundColor, 40%);
+  }
+}
+
+@mixin field-colors($textColor, $backgroundColor: transparent){
+  color: $textColor;
+  background-color: $backgroundColor;
+  transition: background-color 0.1s ease-in-out;
+  outline: none;
+
+  &:focus {
+    background-color: mix($blackColor, $backgroundColor, 15%);
+  }
+
+  &:active {
+    background-color: mix($blackColor, $backgroundColor, 17%);
+  }
+}

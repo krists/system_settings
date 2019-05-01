@@ -1,0 +1,47 @@
+@import "../colors";
+@import "../fonts";
+
+.table {
+    table-layout: fixed;
+    white-space: nowrap;
+    width: 100%;
+    user-select: none;
+}
+
+.table td {
+    &:empty:after {
+        content: "-";
+    }
+}
+
+.empty-tr {
+    color: $gray35;
+    & td {
+        text-align: center;
+    }
+}
+
+.name {
+    width: 20%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.table tbody .name, .table tbody .description, .table tbody .value   {
+    user-select: text;
+}
+
+.description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50%;
+}
+
+.value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.actions {
+    width: 50px;
+    text-align: right;
+}

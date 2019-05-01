@@ -1,0 +1,19 @@
+@import "../colors";
+.wrap {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.name {
+  font-size: 0.8em;
+  color: $gray55;
+  user-select: none;
+}
+
+.value {
+
+}
+.value:empty:after {
+  content: "-";
+}

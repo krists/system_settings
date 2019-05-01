@@ -1,0 +1,32 @@
+en:
+  activerecord:
+    models:
+      system_settings/setting:
+        one: "System Setting"
+        other: "System Settings"
+      system_settings/integer_list_setting:
+        one: "System Setting (Integer list)"
+        other: "System Settings (Integer list)"
+      system_settings/integer_setting:
+        one: "System Setting (Integer)"
+        other: "System Settings (Integer)"
+      system_settings/string_list_setting:
+        one: "System Setting (String list)"
+        other: "System Settings (String list)"
+      system_settings/string_setting:
+        one: "System Setting (String)"
+        other: "System Settings (String)"
+    attributes:
+      system_settings/setting:
+        id: "ID"
+        name: "Name"
+        type: "Type"
+        description: "Description"
+        created_at: "Created at"
+        uploaded_at: "Updated at"
+    errors:
+      models:
+        system_settings/setting:
+          attributes:
+            value:
+              not_a_list_of_integers: "not a list of integers"
