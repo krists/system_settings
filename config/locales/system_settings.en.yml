@@ -30,3 +30,4 @@ en:
           attributes:
             value:
               not_a_list_of_integers: "not a list of integers"
+              not_a_list_of_strings: "not a list of strings"

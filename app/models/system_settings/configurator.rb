@@ -7,6 +7,10 @@ module SystemSettings
           obj.instance_eval(file_content, path, 1)
         end
       end
+
+      def purge
+        new.purge
+      end
     end
 
     attr_reader :items
@@ -27,7 +31,7 @@ module SystemSettings
     end
 
     def string_list(name, value: nil, description: nil, &blk)
-      add(name, SystemSettings::StringListSetting, value: value, description: description, &blk)
+      add(name, SystemSettings::StringListSetting, value: value || [], description: description, &blk)
     end
 
     def integer(name, value: nil, description: nil, &blk)
@@ -35,7 +39,7 @@ module SystemSettings
     end
 
     def integer_list(name, value: nil, description: nil, &blk)
-      add(name, SystemSettings::IntegerListSetting, value: value, description: description, &blk)
+      add(name, SystemSettings::IntegerListSetting, value: value || [], description: description, &blk)
     end
 
     def persist

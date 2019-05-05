@@ -1,11 +1,10 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-  value: MyText
-  type: 
-
-two:
-  name: MyString
-  value: MyText
-  type: 
+default_mail_from:
+  name: "default_mail_from"
+  type: "SystemSettings::StringSetting"
+  value: "Example Company <noreply@example.com>"
+  description: "This email will be used for all outgoing emails"
+default_records_per_page:
+  name: "default_records_per_page"
+  type: "SystemSettings::IntegerSetting"
+  value: 50
+  description:
