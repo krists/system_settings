@@ -2,7 +2,6 @@ require "test_helper"
 
 module SystemSettings
   class IntegerSettingTest < ActiveSupport::TestCase
-
     def setup
       @record = IntegerSetting.new(name: "max_retries")
     end
@@ -15,12 +14,6 @@ module SystemSettings
     end
 
     test "value must be integer" do
-      @record.value = 13.0
-      refute @record.valid?
-      assert @record.errors.include?(:value)
-      assert_equal ["must be an integer"], @record.errors[:value]
-
-
       @record.value = "twelve"
       refute @record.valid?
       assert @record.errors.include?(:value)

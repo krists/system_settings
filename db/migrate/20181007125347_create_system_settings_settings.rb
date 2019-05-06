@@ -1,4 +1,4 @@
-class CreateSystemSettingsSettings < ActiveRecord::Migration[5.2]
+class CreateSystemSettingsSettings < ActiveRecord::Migration[5.0]
   def change
     create_table :system_settings_settings do |t|
       t.string :name, null: false, index: { unique: true }

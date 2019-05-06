@@ -11,4 +11,3 @@ namespace :system_settings do
     SystemSettings::Configurator.purge
   end
 end
-

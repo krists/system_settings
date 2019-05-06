@@ -17,12 +17,11 @@ module SystemSettings
 
     def initialize(&block)
       @items = []
-      if block_given?
-        if block.arity == 1
-          yield self
-        else
-          instance_exec(&block)
-        end
+      return unless block_given?
+      if block.arity == 1
+        yield self
+      else
+        instance_exec(&block)
       end
     end
 

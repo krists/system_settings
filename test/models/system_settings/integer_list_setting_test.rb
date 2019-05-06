@@ -2,7 +2,6 @@ require "test_helper"
 
 module SystemSettings
   class IntegerListSettingTest < ActiveSupport::TestCase
-
     def setup
       @record = IntegerListSetting.new(name: "allowed_values")
     end

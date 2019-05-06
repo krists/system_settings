@@ -15,6 +15,7 @@ RDoc::Task.new(:rdoc) do |rdoc|
 end
 
 APP_RAKEFILE = File.expand_path("test/dummy/Rakefile", __dir__)
+
 load "rails/tasks/engine.rake"
 
 load "rails/tasks/statistics.rake"
@@ -50,6 +51,7 @@ task :build_frontend do
         tagged_logger.tagged("YARN", "STDOUT") { logger.debug(line.rstrip) }
       end
     rescue IOError
+      nil
     end
     stdout_thread.abort_on_exception = true
 
@@ -59,6 +61,7 @@ task :build_frontend do
         tagged_logger.tagged("YARN", "STDERR") { logger.debug(line.rstrip) }
       end
     rescue IOError
+      nil
     end
     stderr_thread.abort_on_exception = true
 

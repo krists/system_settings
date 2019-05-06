@@ -2,7 +2,6 @@ require "test_helper"
 
 module SystemSettings
   class StringSettingTest < ActiveSupport::TestCase
-
     def setup
       @record = StringSetting.new(name: "foo")
     end

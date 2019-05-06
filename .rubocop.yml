@@ -2,7 +2,8 @@ AllCops:
   TargetRubyVersion: 2.5
   DisplayCopNames: true
   Exclude:
-    - 'frontend/**/*'
+    - "frontend/**/*"
+    - "test/dummy/db/schema.rb"
 
 StringLiterals:
   Enabled: true
@@ -42,6 +43,8 @@ Style/NumericLiterals:
 Layout/SpaceBeforeBlockBraces:
   Enabled: false
 Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+Layout/RescueEnsureAlignment:
   Enabled: false
 Style/ParallelAssignment:
   Enabled: false
