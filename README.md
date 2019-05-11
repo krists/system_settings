@@ -21,16 +21,7 @@ Or install it yourself as:
 $ gem install system_settings
 ```
 ## Development
-
-`5.0.7.2`, `5.1.7`, `5.2.3`, `6.0.0.rc1`
-
-`RAILS_VERSION=5.0.7.2 SQLITE3_VERSION=1.3.13 ./bin/rails app:db:drop app:db:create app:db:migrate app:db:test:prepare test`
-`RAILS_VERSION=5.1.7 SQLITE3_VERSION=1.4.1 ./bin/rails app:db:drop app:db:create app:db:migrate app:db:test:prepare test`
-`RAILS_VERSION=5.2.3 SQLITE3_VERSION=1.4.1 ./bin/rails app:db:drop app:db:create app:db:migrate app:db:test:prepare test`
-`RAILS_VERSION=6.0.0.rc1 SQLITE3_VERSION=1.4.1 ./bin/rails app:db:drop app:db:create app:db:migrate app:db:test:prepare test`
-
-## Contributing
-Contribution directions go here.
+[![Build Status](https://dev.azure.com/kristsozols/System%20Settings/_apis/build/status/krists.system_settings?branchName=master)](https://dev.azure.com/kristsozols/System%20Settings/_build/latest?definitionId=1&branchName=master)
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
