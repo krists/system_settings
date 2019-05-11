@@ -1,0 +1,40 @@
+# Ruby
+# Package your Ruby project.
+# Add steps that install rails, analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/ruby
+
+trigger:
+- master
+
+jobs:
+  - job: test
+    pool:
+      vmImage: 'ubuntu-latest'
+    strategy:
+      matrix:
+        rails_50:
+          RAILS_VERSION: 5.0.7.2
+          SQLITE3_VERSION: 1.3.13
+        rails_51:
+          RAILS_VERSION: 5.1.7
+          SQLITE3_VERSION: 1.4.1
+        rails_52:
+          RAILS_VERSION: 5.2.3
+          SQLITE3_VERSION: 1.4.1
+        rails_60:
+          RAILS_VERSION: 6.0.0.rc1
+          SQLITE3_VERSION: 1.4.1
+    steps:
+    - task: UseRubyVersion@0
+      inputs:
+        versionSpec: '>= 2.5'
+    - script: sudo apt-get install libreadline-dev libsqlite3-dev
+      displayName: 'Install apt dependencies'
+    - script: |
+        gem install bundler
+        bundle install --retry=3 --jobs=4
+      displayName: 'bundle install'
+    - script: ./bin/rails db:create db:migrate
+      displayName: 'prepare database'
+    - script: ./bin/rails test
+      displayName: 'run tests'

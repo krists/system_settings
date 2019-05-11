@@ -1,16 +1,6 @@
 ENV["RAILS_ENV"] = "test"
-require "pry"
-
-puts <<~VERSIONS
-  Testing with versions:
-   * Rails #{Bundler.locked_gems.dependencies["rails"].to_spec.version}
-   * SQLite3 #{Bundler.locked_gems.dependencies["sqlite3"].to_spec.version}
-
-VERSIONS
-
 require_relative "../test/dummy/config/environment"
 ActiveRecord::Migrator.migrations_paths = [File.expand_path("../test/dummy/db/migrate", __dir__)]
-
 ActiveRecord::Migrator.migrations_paths << File.expand_path("../db/migrate", __dir__)
 require "rails/test_help"
 
