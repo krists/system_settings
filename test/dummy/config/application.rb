@@ -3,15 +3,13 @@ require_relative "boot"
 require "rails"
 require "active_record/railtie"
 require "action_controller/railtie"
-require "rails/test_unit/railtie" # TODO: WHY?
 Bundler.require(*Rails.groups)
 require "system_settings"
 
 module Dummy
   class Application < Rails::Application
     if config.respond_to?(:load_defaults)
-      loaded_rails_version = Bundler.locked_gems.dependencies["rails"].to_spec.version
-      config.load_defaults loaded_rails_version.segments[0...2].join(".")
+      config.load_defaults [Rails::VERSION::MAJOR, Rails::VERSION::MINOR].join(".")
     else # Rails 5.0 does now have load_defaults method
       config.action_controller.raise_on_unfiltered_parameters = true
       config.action_controller.per_form_csrf_tokens = true
