@@ -43,6 +43,9 @@ Getting started with development:
 1) `RAILS_VERSION=5.2.3 SQLITE3_VERSION=1.4.1 bundle`
 2) `RAILS_VERSION=5.2.3 SQLITE3_VERSION=1.4.1 ./bin/rails db:create db:migrate`
 3) `RAILS_VERSION=5.2.3 SQLITE3_VERSION=1.4.1 ./bin/rails test`
+4) `RAILS_VERSION=5.2.3 SQLITE3_VERSION=1.4.1 ./bin/rails frontend:install`
+4) `RAILS_VERSION=5.2.3 SQLITE3_VERSION=1.4.1 ./bin/rails app:system_settings:load`
+4) `RAILS_VERSION=5.2.3 SQLITE3_VERSION=1.4.1 overmind start`
 
 
 ## Build status
