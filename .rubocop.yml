@@ -3,6 +3,9 @@ AllCops:
   DisplayCopNames: true
   Exclude:
     - "frontend/**/*"
+    - "bin/bundle"
+    - "bin/rake"
+    - "bin/rubocop"
     - "test/dummy/db/schema.rb"
 
 StringLiterals:
