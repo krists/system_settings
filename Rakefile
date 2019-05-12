@@ -38,39 +38,57 @@ end
 require "open3"
 require "active_support/tagged_logging"
 
-task :build_frontend do
-  logger = Logger.new(STDERR)
-  tagged_logger = ActiveSupport::TaggedLogging.new(logger)
+class YarnCommand
+  def initialize(*command)
+    @command = command
+    @logger = ActiveSupport::TaggedLogging.new(Logger.new(STDERR))
+  end
 
-  Open3.popen3("yarn build", chdir: File.join(__dir__, "frontend")) do |stdin, stdout, stderr, wait_thread|
-    stdin.close_write
+  attr_reader :command, :logger
 
-    stdout_thread = Thread.new do
-      until stdout.eof?
-        line = stdout.gets
-        tagged_logger.tagged("YARN", "STDOUT") { logger.debug(line.rstrip) }
+  def run
+    Open3.popen3(*command, chdir: File.join(__dir__, "frontend")) do |stdin, stdout, stderr, wait_thread|
+      stdin.close_write
+
+      stdout_thread = Thread.new do
+        until stdout.eof?
+          line = stdout.gets
+          logger.tagged("YARN", "STDOUT") { logger.debug(line.rstrip) }
+        end
+      rescue IOError
+        nil
       end
-    rescue IOError
-      nil
-    end
-    stdout_thread.abort_on_exception = true
+      stdout_thread.abort_on_exception = true
 
-    stderr_thread = Thread.new do
-      until stderr.eof?
-        line = stderr.gets
-        tagged_logger.tagged("YARN", "STDERR") { logger.debug(line.rstrip) }
+      stderr_thread = Thread.new do
+        until stderr.eof?
+          line = stderr.gets
+          logger.tagged("YARN", "STDERR") { logger.debug(line.rstrip) }
+        end
+      rescue IOError
+        nil
       end
-    rescue IOError
-      nil
+      stderr_thread.abort_on_exception = true
+
+      wait_thread.join
+
+      exit(1) unless wait_thread.value.exitstatus.zero?
     end
-    stderr_thread.abort_on_exception = true
-
-    wait_thread.join
-
-    exit(1) unless wait_thread.value.exitstatus.zero?
   end
 end
 
-Rake::Task[:build].enhance [:build_frontend]
+namespace :frontend do
+  desc "Build frontend component"
+  task :build do
+    YarnCommand.new("yarn build").run
+  end
+
+  desc "Install frontend dependencies"
+  task :install do
+    YarnCommand.new("yarn install").run
+  end
+end
+
+Rake::Task[:build].enhance [:"frontend:build"]
 
 task default: :test
