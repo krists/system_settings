@@ -36,5 +36,6 @@ jobs:
       displayName: 'bundle install'
     - script: ./bin/rails db:create db:migrate
       displayName: 'prepare database'
+    - script: ./bin/rails frontend:install frontend:build
     - script: ./bin/rails test
       displayName: 'run tests'
