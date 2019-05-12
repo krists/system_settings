@@ -58,13 +58,13 @@ export function saveSetting(id, csrfToken, attributes) {
 
             if(error.name === "HTTPError") {
                 if (error.response.status === 422){
+                    let json;
                     try {
-                        const json = await error.response.json();
-                        throw new SubmissionError(json.errors);
+                        json = await error.response.json();
                     } catch (jsonParseError) {
                         throw new SubmissionError({_error: error.message});
                     }
-
+                    throw new SubmissionError(json.errors);
                 } else {
                     let message = `${error.response.status} ${error.message}`;
                     throw new SubmissionError({_error: message});
