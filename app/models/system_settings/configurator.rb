@@ -2,9 +2,12 @@ module SystemSettings
   class Configurator
     class << self
       def from_file(path)
-        file_content = File.read(path)
+        path_str = path.to_s
+        raise SystemSettings::Errors::SettingsReadError, "#{path_str} file does not exist" unless File.exist?(path_str)
+        raise SystemSettings::Errors::SettingsReadError, "#{path_str} file not readable" unless File.readable?(path_str)
+        file_content = File.read(path_str)
         new.tap do |obj|
-          obj.instance_eval(file_content, path, 1)
+          obj.instance_eval(file_content, path_str, 1)
         end
       end
 
@@ -53,6 +56,7 @@ module SystemSettings
             end
           end
         end
+        true
       else
         warn "SystemSettings: Settings table has not been created!"
         false
