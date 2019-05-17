@@ -21,7 +21,7 @@ module SystemSettings
         when Array
           value.map { |v| String(v).strip }
         when String
-          value.split(DELIMITER_REGEXP).map(&:strip)
+          value.split(DELIMITER_REGEXP).map(&:strip).map { |str| str.gsub("\\;", ";") }
         end
       end
     end

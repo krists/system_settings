@@ -37,5 +37,8 @@ jobs:
     - script: ./bin/rails db:create db:migrate
       displayName: 'prepare database'
     - script: ./bin/rails frontend:install frontend:build
+      displayName: 'build frontend application'
     - script: ./bin/rails test
       displayName: 'run tests'
+    - script: ./bin/rails app:test:system
+      displayName: 'run system tests'

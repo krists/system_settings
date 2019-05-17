@@ -11,4 +11,22 @@ ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../Gemfile", __dir__)
 require "bundler/setup" if File.exist?(ENV["BUNDLE_GEMFILE"])
 
 require "rails/all"
+
+# There were no system tests when Rails 5.0 came out.
+# Lets skip those when running test task without file pattern
+if ([Rails::VERSION::MAJOR, Rails::VERSION::MINOR].join(".") == "5.0") && [/^t$/, /^test$/, /^app:test/].any? { |regexp| ARGV[0].match?(regexp) }
+  require "rails/test_unit/runner"
+  module LoadTestsWithoutSystemTests
+    def load_tests(argv)
+      patterns = extract_filters(argv)
+
+      tests = Rake::FileList[patterns.any? ? patterns : "test/**/*_test.rb"]
+      tests.exclude("test/system/**/*", "test/dummy/**/*") if patterns.empty?
+
+      tests.to_a.each { |path| require File.expand_path(path) }
+    end
+  end
+  Rails::TestUnit::Runner.singleton_class.prepend LoadTestsWithoutSystemTests
+end
+
 require "rails/engine/commands"

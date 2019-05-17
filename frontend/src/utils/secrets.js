@@ -15,9 +15,16 @@ export function humanReadableType(type) {
     }
 }
 
-export function formatValue(type, value) {
+export function formatValueForForm(type, value) {
     switch(type) {
         case "SystemSettings::StringListSetting":
+            return value.map((str) => {
+                if(str && str.replace){
+                    return str.replace(SEP, `\\${SEP}`);
+                } else {
+                    return "";
+                }
+            }).join(SEP);
         case "SystemSettings::IntegerListSetting":
             return value ? value.join(SEP) : value;
         default:

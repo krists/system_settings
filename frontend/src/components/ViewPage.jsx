@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import {formatValue, humanReadableType} from "../utils/secrets";
+import {humanReadableType} from "../utils/secrets";
 import {Attribute} from "./Attribute";
 import {Link} from "react-router-dom";
 import { PageLoadError } from "./PageLoadError";
 import styles from "./ViewPage.module.scss"
 import { ButtonBar } from "./ButtonBar";
 import { start as progressBarStart, done as progressBarDone } from "../progress_bar";
+import {Value} from "./Value";
 
 export class ViewPage extends Component {
 
@@ -31,7 +32,7 @@ export class ViewPage extends Component {
                 <Attribute name="Name"><span className="sysname">{name}</span></Attribute>
                 <Attribute name="Type" children={humanReadableType(type)}/>
                 <Attribute name="Description" children={description}/>
-                <Attribute name="Value" children={formatValue(type, value)}/>
+                <Attribute name="Value"><Value type={type} value={value}/></Attribute>
                 <ButtonBar>
                     <Link className="button primary" to={`/settings/${id}/edit`}>Edit</Link>
                     <Link className="button" to={`/`}>Back</Link>
