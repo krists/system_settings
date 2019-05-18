@@ -87,6 +87,7 @@ When you run `./bin/rails system_settings:load` task it will read `config/system
 
 System Settings admin panel is precompiled at gem's build time. So it does not require any Javascript runtime and can be used with api-only Rails applications.
 
+If you would like to store your settings somewhere else than `config/system_settings.rb` you can use ENV variable `SYSTEM_SETTINGS_PATH` to specify custom path.
 
 ## Development
 
