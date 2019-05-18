@@ -103,7 +103,7 @@ Required environment variables:
 * `RAILS_VERSION`
 * `SQLITE3_VERSION`
 
-As System Settings gem is being developed to be compatible with multiple [rails](https://github.com/rails/rails),
+As System Settings gem is being developed to be compatible with multiple [Rails](https://github.com/rails/rails) versions,
 you need to set `RAILS_VERSION` and `SQLITE3_VERSION` environment variables when running `bundle install` or any `./bin/rails` command.
 It is recommended to set these up using [direnv](https://direnv.net/) and `.envrc` file.
 
