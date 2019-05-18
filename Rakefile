@@ -17,7 +17,6 @@ end
 APP_RAKEFILE = File.expand_path("test/dummy/Rakefile", __dir__)
 
 load "rails/tasks/engine.rake"
-
 load "rails/tasks/statistics.rake"
 
 require "bundler/gem_tasks"
@@ -26,13 +25,16 @@ require "rake/testtask"
 
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
-  t.pattern = "test/**/*_test.rb"
+  test_pattern = Rake::FileList["test/**/*_test.rb"]
+  test_pattern.exclude("test/system/**/*", "test/dummy/**/*")
+  t.pattern = test_pattern
   t.verbose = false
 end
 
-Rake::Task["clean"].enhance do
-  frontend_build_dir = File.join(__dir__, "frontend", "build")
-  Pathname.new(frontend_build_dir).children.each(&:rmtree)
+if ([Rails::VERSION::MAJOR, Rails::VERSION::MINOR].join(".") == "5.0") && !Rake::Task.task_defined?("app:test:system")
+  task "app:test:system" do
+    warn "You are running Rails 5.0. System tests where added to Rails in version 5.1. Doing nothing.."
+  end
 end
 
 require "open3"
@@ -89,6 +91,11 @@ namespace :frontend do
   end
 end
 
-Rake::Task[:build].enhance [:"frontend:build"]
+Rake::Task["clean"].enhance do
+  frontend_build_dir = File.join(__dir__, "frontend", "build")
+  Pathname.new(frontend_build_dir).children.each(&:rmtree)
+  test_screenshots_dir = File.join(__dir__, "tmp", "screenshots")
+  Pathname.new(test_screenshots_dir).children.each(&:rmtree) if File.exist?(test_screenshots_dir)
+end
 
-task default: :test
+Rake::Task[:build].enhance [:"frontend:build"]

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import {formatValue} from "../utils/secrets";
 import { Link } from "react-router-dom";
 import styles from "./ListPage.module.scss"
 import { PageLoadError } from "./PageLoadError";
 import { start as progressBarStart, done as progressBarDone } from "../progress_bar"
+import {Value} from "./Value";
 
 class ListPage extends Component {
 
@@ -41,7 +41,7 @@ class ListPage extends Component {
                     return <tr key={attrs.id}>
                         <td className={styles["name"]}><Link className="sysname" to={`/settings/${attrs.id}`}>{attrs.name}</Link></td>
                         <td className={styles["description"]}>{attrs.description}</td>
-                        <td className={styles["value"]}>{formatValue(attrs.type, attrs.value)}</td>
+                        <td className={styles["value"]}><Value type={attrs.type} value={attrs.value}/></td>
                         <td className={styles["actions"]}><Link className={styles["primary-action"]} to={`/settings/${attrs.id}/edit`}>Edit</Link></td>
                     </tr>
                 })}

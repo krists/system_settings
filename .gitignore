@@ -4,8 +4,11 @@ Gemfile.lock
 pkg/
 test/dummy/db/schema.rb
 test/dummy/db/*.sqlite3
+test/dummy/db/*.sqlite3-journal
 test/dummy/log/*.log
 test/dummy/tmp/
+tmp
+!tmp/.keep
 
 frontend/node_modules
 frontend/coverage

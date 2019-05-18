@@ -2,14 +2,14 @@ import { connect } from 'react-redux';
 import { SettingForm } from '../components/SettingForm';
 import { reduxForm } from 'redux-form';
 import { saveSetting } from "../actions/setting"
-import {formatValue} from "../utils/secrets";
+import {formatValueForForm} from "../utils/secrets";
 
 const mapStateToProps = ((store) => {
     let {fetchSuccessful, attributes} = store["setting"];
     return {
         initialValues: {
             ...attributes,
-            value: fetchSuccessful ? formatValue(attributes.type, attributes.value) : attributes.value
+            value: fetchSuccessful ? formatValueForForm(attributes.type, attributes.value) : attributes.value
         }
     }
 });

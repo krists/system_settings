@@ -21,6 +21,8 @@ Metrics/MethodLength:
 Metrics/AbcSize:
   Max: 25
 
+Style/ClassVars:
+  Enabled: false
 Style/HashSyntax:
   Enabled: false
 Style/FrozenStringLiteralComment:

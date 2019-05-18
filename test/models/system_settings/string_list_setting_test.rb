@@ -29,7 +29,7 @@ module SystemSettings
     test "set value with separator escaped" do
       @record.value = "foo\\;bar;baz"
       assert @record.valid?
-      assert_equal ["foo\\;bar", "baz"], @record.value
+      assert_equal ["foo;bar", "baz"], @record.value
     end
 
     test "set value with array" do
