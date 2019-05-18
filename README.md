@@ -1,10 +1,10 @@
 # System Settings
-Short description and motivation.
+System Settings is a Rails engine that adds settings functionality.
 
-## Usage
-How to use my plugin.
+Initial setting values can be loaded from file and later edited in a System Settings provided admin panel.
 
-## Installation
+
+## Getting started
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -16,10 +16,78 @@ And then execute:
 $ bundle
 ```
 
-Or install it yourself as:
+Copy migrations:
 ```bash
-$ gem install system_settings
+$ bin/rails system_settings:install:migrations
 ```
+
+And then run the migrations:
+```bash
+$ bin/rails db:migrate
+```
+
+Create settings file where all settings will be defined:
+```bash
+$ touch config/system_settings.rb
+```
+
+Add your first setting to `config/system_settings.rb`:
+```ruby
+# String type values
+string :default_mail_from, value: "Example Company <noreply@example.com>", description: "This email will be used for all outgoing emails"
+string :date_format, value: "%Y-%m-%d"
+string :default_locale, value: "en"
+
+# Integer type values
+integer :default_records_per_page, value: 25
+integer :remainder_interval_in_hours, value: 48
+
+# Array type strings and integers
+string_list :admin_emails, description: "Will receive alerts"
+integer_list :lucky_numbers, description: "Prime numbers are more effective", value: [2, 3, 5, 11]
+```
+
+Load values from `config/system_settings.rb` into database:
+```bash
+$ ./bin/rails system_settings:load
+```
+
+Add System Settings admin panel to Rails routes:
+```ruby
+Rails.application.routes.draw do
+  mount SystemSettings::Engine, at: "/system_settings"
+  # rest of your routes..
+end
+```
+
+Final step. Access settings values anywhere in your code:
+```ruby
+SystemSettings[:date_format] # => "%Y-%m-%d"
+SystemSettings[:lucky_numbers] # => [2, 3, 5, 11]
+
+# You can change setting's value like any other Rails model.
+SystemSettings::Setting.find_by(name: "default_mail_from").update({value: "No-Reply <noreply@example.com>"})
+```
+
+
+## Do not forget!
+Before using System settings in production please protect the `/system_settings` endpoint with routing constraint. You can read more about it in [Rails Guides: Rails Routing from the Outside In](https://guides.rubyonrails.org/routing.html#advanced-constraints)
+
+```ruby
+Rails.application.routes.draw do
+  mount SystemSettings::Engine, at: "/system_settings", constraints: AdminRoutingConstraint.new
+  # rest of your routes..
+end
+```
+
+
+## Few more things
+
+When you run `./bin/rails system_settings:load` task it will read `config/system_settings.rb` file and add new entries to the database. If you would like to replace all values with the ones from the file then run `./bin/rails system_settings:reset` 
+
+System Settings admin panel is precompiled at gem's build time. So it does not require any Javascript runtime and can be used with api-only Rails applications.
+
+
 ## Development
 
 Required development dependencies:
@@ -49,7 +117,7 @@ Getting started with development:
 
 
 ## Build status
-SystemSettings is being tested with Rails versions - `5.0`, `5.1`, `5.2`, `6.0`, `rails repo master branch`
+System Settings is being tested with Rails versions - `5.0`, `5.1`, `5.2`, `6.0`, `rails repo master branch`
 
 [![Build Status](https://dev.azure.com/kristsozols/System%20Settings/_apis/build/status/krists.system_settings?branchName=master)](https://dev.azure.com/kristsozols/System%20Settings/_build/latest?definitionId=1&branchName=master)
 
