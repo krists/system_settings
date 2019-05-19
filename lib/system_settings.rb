@@ -15,6 +15,11 @@ module SystemSettings
     Setting.find_by!(name: name).value
   end
 
+  def self.load
+    configurator = Configurator.from_file(settings_file_path)
+    configurator.persist
+  end
+
   def self.reset_to_defaults
     configurator = Configurator.from_file(settings_file_path)
     configurator.purge

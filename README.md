@@ -44,6 +44,7 @@ integer :remainder_interval_in_hours, value: 48
 
 # Array type strings and integers
 string_list :admin_emails, description: "Will receive alerts"
+string_list :upload_allowed_extensions, value: ["docx", "pdf", "txt"]
 integer_list :lucky_numbers, description: "Prime numbers are more effective", value: [2, 3, 5, 11]
 ```
 
@@ -88,6 +89,13 @@ When you run `./bin/rails system_settings:load` task it will read `config/system
 System Settings admin panel is precompiled at gem's build time. So it does not require any Javascript runtime and can be used with api-only Rails applications.
 
 If you would like to store your settings somewhere else than `config/system_settings.rb` you can use ENV variable `SYSTEM_SETTINGS_PATH` to specify custom path.
+
+
+## Using System Settings in tests
+
+Your test suite probably clears database before/after every test example. Fortunately is very easy to load fresh settings from configuration file. It can be done by running `SystemSettings.load`.
+And if you modify settings values in test example you can reset to defaults with `SystemSettings.reset_to_defaults`.
+
 
 ## Development
 
