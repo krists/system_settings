@@ -54,7 +54,7 @@ module SystemSettings
           @items.each do |entry|
             persisted_record = entry[:class].find_by(name: entry[:name])
             if persisted_record
-              persisted_record.update_attributes!(description: entry[:description])
+              persisted_record.update!(description: entry[:description])
             else
               entry[:class].create!(name: entry[:name], value: entry[:value], description: entry[:description])
             end
