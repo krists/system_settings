@@ -44,6 +44,10 @@ module SystemSettings
       add(name, SystemSettings::IntegerListSetting, value: value || [], description: description, &blk)
     end
 
+    def boolean(name, value: nil, description: nil, &blk)
+      add(name, SystemSettings::BooleanSetting, value: value, description: description, &blk)
+    end
+
     def persist
       if settings_table_exists?
         SystemSettings::Setting.transaction do

@@ -9,12 +9,12 @@ export class Value extends React.Component {
             case "SystemSettings::StringListSetting":
             case "SystemSettings::IntegerListSetting":
                 if(value){
-                    return value.map((v, i) => <span key={i} className={styles["section"]}>{v}</span>)
+                    return value.map((v, i) => <span key={i} className={styles["section"]}>{v.toString()}</span>)
                 } else {
                     return null;
                 }
             default:
-                return <span className={styles["section"]}>{value}</span>;
+                return <span className={styles["section"]}>{value.toString()}</span>;
         }
     }
     render(){

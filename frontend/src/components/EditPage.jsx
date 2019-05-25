@@ -30,6 +30,15 @@ export class EditPage extends Component {
         }
     }
 
+    valueInputType(type){
+        switch (type) {
+            case "SystemSettings::BooleanSetting":
+                return "checkbox";
+            default:
+                return "text";
+        }
+    }
+
     render() {
         let { fetching, fetchSuccessful, fetchErrorMessage, authenticityToken, attributes: {id, name, description, type} } = this.props;
         if(fetching){
@@ -39,7 +48,7 @@ export class EditPage extends Component {
                 <Attribute name="Name"><span className="sysname">{name}</span></Attribute>
                 <Attribute name="Type">{humanReadableType(type)}</Attribute>
                 <Attribute name="Description">{description}</Attribute>
-                <SettingForm id={id} authenticityToken={authenticityToken} hint={this.hint(type)}/>
+                <SettingForm id={id} authenticityToken={authenticityToken} hint={this.hint(type)} valueInputType={this.valueInputType(type)} />
             </div>
         } else {
             return <PageLoadError description={fetchErrorMessage} />

@@ -90,4 +90,33 @@ class CreateReadUpdateDeleteTest < ApplicationSystemTestCase
     assert_selector "span", text: "aaa;bbb\\;ccc"
     assert_selector "span", text: "ddd"
   end
+
+  test "boolean setting" do
+    SystemSettings::Configurator.new do |c|
+      c.boolean :bool_x, value: true
+      c.boolean :bool_y, value: false
+      assert c.persist
+    end
+
+    assert_equal true, SystemSettings[:bool_x]
+    assert_equal false, SystemSettings[:bool_y]
+
+    visit "/system_settings"
+    click_on "bool_x"
+    click_on "Edit"
+    assert_field "Value", with: "true"
+    uncheck "Value"
+    click_button "Save"
+    refute_selector "svg[data-role='save-spinner']"
+    assert_equal false, SystemSettings[:bool_x]
+
+    visit "/system_settings"
+    click_on "bool_y"
+    click_on "Edit"
+    assert_field "Value", with: "false"
+    check "Value"
+    click_button "Save"
+    refute_selector "svg[data-role='save-spinner']"
+    assert_equal true, SystemSettings[:bool_y]
+  end
 end

@@ -3,6 +3,9 @@
 .wrap {
   white-space: nowrap;
 }
+.wrap:empty:after {
+  content: "-";
+}
 .section {
   max-width: 100%;
   margin-right: 0.25em;

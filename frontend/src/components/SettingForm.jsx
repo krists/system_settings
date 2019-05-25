@@ -16,10 +16,11 @@ export class SettingForm extends React.Component {
             error,
             pristine,
             submitting,
+            valueInputType
         } =  this.props;
         return <form onSubmit={handleSubmit(myHandleSubmit)}>
             <div className={styles["fields"]}>
-                <Field name="value" label="Value" id="secret_value" component={LabeledInput} hint={hint} />
+                <Field name="value" label="Value" id="secret_value" type={valueInputType} component={LabeledInput} hint={hint} />
             </div>
             {error && <div className={styles["error-wrap"]}>
                 <div className={styles["error-message"]}>
@@ -51,6 +52,7 @@ export const SettingFormProps = {
         PropTypes.string,
         PropTypes.element
     ]),
+    valueInputType: PropTypes.string.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     myHandleSubmit: PropTypes.func.isRequired,
     pristine: PropTypes.bool,

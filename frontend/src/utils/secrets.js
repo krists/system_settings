@@ -10,6 +10,8 @@ export function humanReadableType(type) {
             return "Integer";
         case "SystemSettings::IntegerListSetting":
             return "List of integers";
+        case "SystemSettings::BooleanSetting":
+            return "Boolean";
         default:
             return "Unknown";
     }
@@ -27,6 +29,8 @@ export function formatValueForForm(type, value) {
             }).join(SEP);
         case "SystemSettings::IntegerListSetting":
             return value ? value.join(SEP) : value;
+        case "SystemSettings::BooleanSetting":
+            return value;
         default:
             return value;
     }

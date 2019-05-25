@@ -55,5 +55,16 @@ module SystemSettings
       assert_equal [], SystemSettings[:foo]
       assert_equal [11, 22, 33], SystemSettings[:bar]
     end
+
+    test "boolean setting" do
+      SystemSettings::Configurator.new do |c|
+        assert c.purge
+        c.boolean :foo, value: false
+        c.boolean :bar, value: true
+        assert c.persist
+      end
+      assert_equal false, SystemSettings[:foo]
+      assert_equal true, SystemSettings[:bar]
+    end
   end
 end
