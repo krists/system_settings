@@ -24,6 +24,9 @@ jobs:
         rails_60:
           RAILS_VERSION: 6.0.0.rc1
           SQLITE3_VERSION: 1.4.1
+        rails_master:
+          RAILS_VERSION: master
+          SQLITE3_VERSION: 1.4.1
     steps:
     - task: UseRubyVersion@0
       inputs:
