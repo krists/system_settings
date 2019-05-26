@@ -6,9 +6,12 @@ module SystemSettings
         raise Errors::SettingsReadError, "The file name must either be a String or implement #to_path" unless file_name.is_a?(String)
         raise Errors::SettingsReadError, "#{file_name} file does not exist" unless File.exist?(file_name)
         raise Errors::SettingsReadError, "#{file_name} file not readable" unless File.readable?(file_name)
-        file_content = File.read(file_name)
-        new.tap do |obj|
-          obj.instance_eval(file_content, file_name, 1)
+        SystemSettings.instrument("system_settings.from_file", path: file_name) do |payload|
+          file_content = File.read(file_name)
+          new.tap do |obj|
+            obj.instance_eval(file_content, file_name, 1)
+            payload[:items] = obj.items
+          end
         end
       end
 
@@ -50,30 +53,34 @@ module SystemSettings
     end
 
     def persist
-      if settings_table_exists?
-        SystemSettings::Setting.transaction do
-          @items.each do |entry|
-            persisted_record = entry[:class].find_by(name: entry[:name])
-            if persisted_record
-              persisted_record.update!(description: entry[:description])
-            else
-              entry[:class].create!(name: entry[:name], value: entry[:value], description: entry[:description])
+      SystemSettings.instrument("system_settings.persist", items: @items) do |payload|
+        if settings_table_exists?
+          SystemSettings::Setting.transaction do
+            @items.each do |entry|
+              persisted_record = entry[:class].find_by(name: entry[:name])
+              if persisted_record
+                persisted_record.update!(description: entry[:description])
+              else
+                entry[:class].create!(name: entry[:name], value: entry[:value], description: entry[:description])
+              end
             end
           end
+          payload[:success] = true
+        else
+          warn "SystemSettings: Settings table has not been created!"
+          payload[:success] = false
         end
-        true
-      else
-        warn "SystemSettings: Settings table has not been created!"
-        false
       end
     end
 
     def purge
-      if settings_table_exists?
-        SystemSettings::Setting.delete_all
-        true
-      else
-        false
+      SystemSettings.instrument("system_settings.purge") do |payload|
+        if settings_table_exists?
+          SystemSettings::Setting.delete_all
+          payload[:success] = true
+        else
+          payload[:success] = false
+        end
       end
     end
 

@@ -66,8 +66,8 @@ class SystemSettings::Test < ActiveSupport::TestCase
       original_value = SystemSettings.settings_file_path
       SystemSettings.settings_file_path = "/changed/path2.rb"
       mock = MiniTest::Mock.new
-      mock.expect(:purge, nil)
-      mock.expect(:persist, nil)
+      mock.expect(:purge, true)
+      mock.expect(:persist, true)
       from_file_method_proc = lambda do |path|
         assert_equal "/changed/path2.rb", path
         mock
@@ -78,6 +78,34 @@ class SystemSettings::Test < ActiveSupport::TestCase
       mock.verify
     ensure
       SystemSettings.settings_file_path = original_value
+    end
+  end
+
+  test "instrumentation" do
+    begin
+      original_instrumenter = SystemSettings.instrumenter
+      mock = MiniTest::Mock.new
+      mock.expect(:instrument, nil, ["system_settings.find", {name: :default_records_per_page}])
+      SystemSettings.instrumenter = mock
+      SystemSettings[:default_records_per_page]
+      mock.verify
+    ensure
+      SystemSettings.instrumenter = original_instrumenter
+    end
+  end
+
+  test "instrumentation disabled" do
+    begin
+      original_instrumenter = SystemSettings.instrumenter
+      instrument_proc = lambda do |_, _|
+        raise "Should never be called"
+      end
+      original_instrumenter.stub(:instrument, instrument_proc) do
+        SystemSettings.instrumenter = nil
+        SystemSettings[:default_records_per_page]
+      end
+    ensure
+      SystemSettings.instrumenter = original_instrumenter
     end
   end
 end
