@@ -37,7 +37,7 @@ class CreateReadUpdateDeleteTest < ApplicationSystemTestCase
     assert_text "Example Company <noreply@example.com>"
     refute_text "Changed Company <noreply@example.com>"
     assert setting.update(value: "Changed Company <noreply@example.com>")
-    page.driver.browser.navigate.refresh
+    refresh_page
     assert_text "default_mail_from"
     assert_text "Changed Company <noreply@example.com>"
   end
@@ -50,7 +50,7 @@ class CreateReadUpdateDeleteTest < ApplicationSystemTestCase
     fill_in "Value", with: "Admin <admin@example.com>", fill_options: { clear: :backspace } # https://github.com/erikras/redux-form/issues/686
     assert_field "Value", with: "Admin <admin@example.com>"
     click_button "Save"
-    refute_selector "svg[data-role='save-spinner']"
+    wait_for_request_to_complete
     assert_equal "Admin <admin@example.com>", SystemSettings[:default_mail_from]
   end
 
@@ -67,22 +67,22 @@ class CreateReadUpdateDeleteTest < ApplicationSystemTestCase
 
     fill_in "Value", with: "aaabbb", fill_options: { clear: :backspace }
     click_button "Save"
-    refute_selector "svg[data-role='save-spinner']"
+    wait_for_request_to_complete
     assert_equal ["aaabbb"], SystemSettings[:test_string_list]
 
     fill_in "Value", with: "aaa;bbb", fill_options: { clear: :backspace }
     click_button "Save"
-    refute_selector "svg[data-role='save-spinner']"
+    wait_for_request_to_complete
     assert_equal ["aaa", "bbb"], SystemSettings[:test_string_list]
 
     fill_in "Value", with: "aaa\\;bbb", fill_options: { clear: :backspace }
     click_button "Save"
-    refute_selector "svg[data-role='save-spinner']"
+    wait_for_request_to_complete
     assert_equal ["aaa;bbb"], SystemSettings[:test_string_list]
 
     fill_in "Value", with: "aaa\\;bbb\\\\;ccc;ddd", fill_options: { clear: :backspace }
     click_button "Save"
-    refute_selector "svg[data-role='save-spinner']"
+    wait_for_request_to_complete
     assert_equal ["aaa;bbb\\;ccc", "ddd"], SystemSettings[:test_string_list]
 
     visit "/system_settings"
@@ -107,7 +107,7 @@ class CreateReadUpdateDeleteTest < ApplicationSystemTestCase
     assert_field "Value", with: "true"
     uncheck "Value"
     click_button "Save"
-    refute_selector "svg[data-role='save-spinner']"
+    wait_for_request_to_complete
     assert_equal false, SystemSettings[:bool_x]
 
     visit "/system_settings"
@@ -116,7 +116,17 @@ class CreateReadUpdateDeleteTest < ApplicationSystemTestCase
     assert_field "Value", with: "false"
     check "Value"
     click_button "Save"
-    refute_selector "svg[data-role='save-spinner']"
+    wait_for_request_to_complete
     assert_equal true, SystemSettings[:bool_y]
+  end
+
+  private
+
+  def wait_for_request_to_complete
+    refute_selector "svg[data-role='save-spinner']"
+  end
+
+  def refresh_page
+    page.driver.browser.navigate.refresh
   end
 end

@@ -1,13 +1,14 @@
 module SystemSettings
   class Configurator
     class << self
-      def from_file(path)
-        path_str = path.to_s
-        raise SystemSettings::Errors::SettingsReadError, "#{path_str} file does not exist" unless File.exist?(path_str)
-        raise SystemSettings::Errors::SettingsReadError, "#{path_str} file not readable" unless File.readable?(path_str)
-        file_content = File.read(path_str)
+      def from_file(file_name)
+        file_name = file_name.to_path if file_name.respond_to?(:to_path)
+        raise Errors::SettingsReadError, "The file name must either be a String or implement #to_path" unless file_name.is_a?(String)
+        raise Errors::SettingsReadError, "#{file_name} file does not exist" unless File.exist?(file_name)
+        raise Errors::SettingsReadError, "#{file_name} file not readable" unless File.readable?(file_name)
+        file_content = File.read(file_name)
         new.tap do |obj|
-          obj.instance_eval(file_content, path_str, 1)
+          obj.instance_eval(file_content, file_name, 1)
         end
       end
 

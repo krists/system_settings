@@ -2,7 +2,6 @@ require "test_helper"
 
 module SystemSettings
   class ConfiguratorTest < ActiveSupport::TestCase
-
     test "load items from file" do
       file = Tempfile.new(%w[system_settings_test .rb])
       file.write <<-RUBY
