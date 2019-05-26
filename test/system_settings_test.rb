@@ -1,19 +1,16 @@
 require "test_helper"
 
 class SystemSettings::Test < ActiveSupport::TestCase
-  test "truth" do
-    assert_kind_of Module, SystemSettings
-  end
-
   test "SystemSettings[] accessor" do
     assert SystemSettings::Setting.where(name: "default_mail_from").exists?
     assert_equal "Example Company <noreply@example.com>", SystemSettings[:default_mail_from]
   end
 
   test "SystemSettings[] accessor with non-existing name" do
-    assert_raise(ActiveRecord::RecordNotFound) do
+    error = assert_raise(SystemSettings::Errors::NotFoundError) do
       SystemSettings[:non_existing]
     end
+    assert_equal "Couldn't find system setting non_existing", error.message
   end
 
   test "settings_file_path" do
@@ -39,6 +36,21 @@ class SystemSettings::Test < ActiveSupport::TestCase
       SystemSettings.load
     end
     mock.verify
+  ensure
+    SystemSettings.settings_file_path = original_value
+  end
+
+  test "load with non-existing path" do
+    original_value = SystemSettings.settings_file_path
+    tempfile = Tempfile.new(%w[non-existing-settings .rb])
+    path = tempfile.path
+    tempfile.close
+    assert tempfile.unlink
+    refute File.exist?(path)
+    SystemSettings.settings_file_path = tempfile.path
+    assert_raises SystemSettings::Errors::SettingsReadError do
+      SystemSettings.load
+    end
   ensure
     SystemSettings.settings_file_path = original_value
   end

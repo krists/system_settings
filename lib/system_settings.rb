@@ -1,18 +1,13 @@
 require "system_settings/engine"
 
 module SystemSettings
-  @@settings_file_path = nil
-
-  def self.settings_file_path
-    @@settings_file_path
-  end
-
-  def self.settings_file_path=(value)
-    @@settings_file_path = value
+  class << self
+    attr_accessor :settings_file_path
   end
 
   def self.[](name)
-    Setting.find_by!(name: name).value
+    record = Setting.find_by(name: name) || raise(Errors::NotFoundError, "Couldn't find system setting #{name}")
+    record.value
   end
 
   def self.load

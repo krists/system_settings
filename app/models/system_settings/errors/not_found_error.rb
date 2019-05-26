@@ -1,6 +1,6 @@
 module SystemSettings
   module Errors
-    class SettingsReadError < Error
+    class NotFoundError < Error
     end
   end
 end
