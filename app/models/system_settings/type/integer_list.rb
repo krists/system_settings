@@ -21,15 +21,19 @@ module SystemSettings
         case value
         when Array
           value.map do |v|
-            v.to_i
-          rescue StandardError
-            nil
+            begin
+              v.to_i
+            rescue StandardError
+              nil
+            end
           end
         when String
           value.split(SEPARATOR).map do |v|
-            v.to_i
-          rescue StandardError
-            nil
+            begin
+              v.to_i
+            rescue StandardError
+              nil
+            end
           end
         end
       end

@@ -14,4 +14,5 @@ Gem::Specification.new do |s|
   s.license = "MIT"
   s.files = Dir["{app,config,db,lib}/**/*", "frontend/build/**/*", "MIT-LICENSE", "README.md"]
   s.add_dependency "rails", ">= 5.0"
+  s.required_ruby_version = ">= 2.4.0"
 end

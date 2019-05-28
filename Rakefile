@@ -53,22 +53,26 @@ class YarnCommand
       stdin.close_write
 
       stdout_thread = Thread.new do
-        until stdout.eof?
-          line = stdout.gets
-          logger.tagged("YARN", "STDOUT") { logger.debug(line.rstrip) }
+        begin
+          until stdout.eof?
+            line = stdout.gets
+            logger.tagged("YARN", "STDOUT") { logger.debug(line.rstrip) }
+          end
+        rescue IOError
+          nil
         end
-      rescue IOError
-        nil
       end
       stdout_thread.abort_on_exception = true
 
       stderr_thread = Thread.new do
-        until stderr.eof?
-          line = stderr.gets
-          logger.tagged("YARN", "STDERR") { logger.debug(line.rstrip) }
+        begin
+          until stderr.eof?
+            line = stderr.gets
+            logger.tagged("YARN", "STDERR") { logger.debug(line.rstrip) }
+          end
+        rescue IOError
+          nil
         end
-      rescue IOError
-        nil
       end
       stderr_thread.abort_on_exception = true
 
