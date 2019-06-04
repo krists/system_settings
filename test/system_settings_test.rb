@@ -81,6 +81,29 @@ class SystemSettings::Test < ActiveSupport::TestCase
     end
   end
 
+  test "reset_to_defaults does not wipe configuration if load failed" do
+    begin
+      original_value = SystemSettings.settings_file_path
+      tempfile = Tempfile.new(%w[settings .rb])
+      File.open(tempfile.path, "w") do |file|
+        file.write <<-RUBY
+          string :something, value: nil
+        RUBY
+      end
+      assert_equal 2, SystemSettings::Setting.count
+      SystemSettings.settings_file_path = tempfile.path
+      assert_raise ActiveRecord::RecordInvalid do
+        SystemSettings.reset_to_defaults
+      end
+      assert_equal 2, SystemSettings::Setting.count
+      assert_equal %w[default_mail_from default_records_per_page], SystemSettings::Setting.order(:name).pluck(:name)
+    ensure
+      tempfile.close
+      tempfile.unlink
+      SystemSettings.settings_file_path = original_value
+    end
+  end
+
   test "instrumentation" do
     begin
       original_instrumenter = SystemSettings.instrumenter

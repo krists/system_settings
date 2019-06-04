@@ -22,7 +22,9 @@ module SystemSettings
   def self.reset_to_defaults
     instrument("system_settings.reset_to_defaults", path: settings_file_path) do |payload|
       configurator = Configurator.from_file(settings_file_path)
-      payload[:success] = configurator.purge && configurator.persist
+      Setting.transaction do
+        payload[:success] = configurator.purge && configurator.persist
+      end
     end
   end
 
