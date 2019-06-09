@@ -24,3 +24,4 @@ gem "capybara", "~> 3.20"
 gem "selenium-webdriver", "~> 3.142", ">= 3.142.2"
 gem "webdrivers", "~> 3.9", ">= 3.9.3"
 gem "puma", "~> 3.12", ">= 3.12.1"
+gem "simplecov", require: false

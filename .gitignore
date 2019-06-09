@@ -1,5 +1,6 @@
 .bundle/
 .overmind.sock
+coverage
 Gemfile.lock
 pkg/
 test/dummy/db/schema.rb
