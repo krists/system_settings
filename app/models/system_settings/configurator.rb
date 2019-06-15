@@ -1,14 +1,14 @@
 module SystemSettings
   class Configurator
     class << self
-      def from_file(file_name)
+      def from_file(file_name, kernel_class: Kernel)
         file_name = file_name.to_path if file_name.respond_to?(:to_path)
         raise Errors::SettingsReadError, "The file name must either be a String or implement #to_path" unless file_name.is_a?(String)
         raise Errors::SettingsReadError, "#{file_name} file does not exist" unless File.exist?(file_name)
         raise Errors::SettingsReadError, "#{file_name} file not readable" unless File.readable?(file_name)
         SystemSettings.instrument("system_settings.from_file", path: file_name) do |payload|
           file_content = File.read(file_name)
-          new.tap do |obj|
+          new(kernel_class: kernel_class).tap do |obj|
             obj.instance_eval(file_content, file_name, 1)
             payload[:items] = obj.items
           end
@@ -22,8 +22,9 @@ module SystemSettings
 
     attr_reader :items
 
-    def initialize(&block)
+    def initialize(kernel_class: Kernel, &block)
       @items = []
+      @kernel_class = kernel_class
       return unless block_given?
       if block.arity == 1
         yield self
@@ -57,9 +58,13 @@ module SystemSettings
         if settings_table_exists?
           SystemSettings::Setting.transaction do
             @items.each do |entry|
-              persisted_record = entry[:class].find_by(name: entry[:name])
+              persisted_record = SystemSettings::Setting.find_by(name: entry[:name])
               if persisted_record
-                persisted_record.update!(description: entry[:description])
+                if persisted_record.class == entry[:class]
+                  persisted_record.update!(description: entry[:description])
+                else
+                  warn "SystemSettings: Type mismatch detected! Previously #{entry[:name]} had type #{persisted_record.class.name} but you are loading #{entry[:class].name}"
+                end
               else
                 entry[:class].create!(name: entry[:name], value: entry[:value], description: entry[:description])
               end
@@ -85,6 +90,10 @@ module SystemSettings
     end
 
     private
+
+    def warn(*args)
+      @kernel_class.warn(*args)
+    end
 
     def settings_table_exists?
       SystemSettings::Setting.table_exists?

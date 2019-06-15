@@ -67,5 +67,35 @@ module SystemSettings
       assert_equal false, SystemSettings[:foo]
       assert_equal true, SystemSettings[:bar]
     end
+
+    test "warn about type mismatch" do
+      SystemSettings.load
+      assert_equal 50, SystemSettings[:default_records_per_page]
+
+      kernel_mock = Minitest::Mock.new
+      kernel_mock.expect :warn, nil, ["SystemSettings: Type mismatch detected! Previously default_records_per_page had type SystemSettings::IntegerSetting but you are loading SystemSettings::StringSetting"]
+
+      SystemSettings::Configurator.new(kernel_class: kernel_mock) do |c|
+        c.string :default_records_per_page, value: "many"
+        assert c.persist
+      end
+
+      kernel_mock.verify
+      assert_equal 50, SystemSettings[:default_records_per_page]
+    end
+
+    test "warn about non-existing database" do
+      assert SystemSettings::Setting.table_exists?
+      kernel_mock = Minitest::Mock.new
+      kernel_mock.expect :warn, nil, ["SystemSettings: Settings table has not been created!"]
+      SystemSettings::Setting.stub(:table_exists?, false) do
+        refute SystemSettings::Setting.table_exists?
+        SystemSettings::Configurator.new(kernel_class: kernel_mock) do |c|
+          c.boolean :foo, value: false
+          assert_equal false, c.persist
+        end
+      end
+      kernel_mock.verify
+    end
   end
 end
