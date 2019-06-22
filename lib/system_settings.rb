@@ -7,7 +7,15 @@ module SystemSettings
 
   def self.[](name)
     instrument("system_settings.find", name: name) do |payload|
-      record = Setting.find_by(name: name) || raise(Errors::NotFoundError, "Couldn't find system setting #{name}")
+      record = Setting.find_by(name: name)
+      unless record
+        message = "Couldn't find system setting #{name}\n\n"
+        message << "It might not be loaded from settings file(#{settings_file_path}).\n"
+        message << "To load missing settings with their initial values you "
+        message << "can call SystemSettings.load from your Rails environment or run Rails task:\n\n"
+        message << "    bin/rails system_settings:load RAILS_ENV=#{::Rails.env}"
+        raise(Errors::NotFoundError, message)
+      end
       payload[:value] = record.value
     end
   end

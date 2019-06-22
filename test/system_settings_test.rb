@@ -10,7 +10,15 @@ class SystemSettings::Test < ActiveSupport::TestCase
     error = assert_raise(SystemSettings::Errors::NotFoundError) do
       SystemSettings[:non_existing]
     end
-    assert_equal "Couldn't find system setting non_existing", error.message
+    expected_message = <<~ERROR.strip
+      Couldn't find system setting non_existing
+      
+      It might not be loaded from settings file(#{SystemSettings.settings_file_path}).
+      To load missing settings with their initial values you can call SystemSettings.load from your Rails environment or run Rails task:
+
+          bin/rails system_settings:load RAILS_ENV=test
+    ERROR
+    assert_equal expected_message, error.message
   end
 
   test "settings_file_path" do
