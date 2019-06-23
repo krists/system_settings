@@ -31,7 +31,9 @@ jobs:
     - task: UseRubyVersion@0
       inputs:
         versionSpec: '>= 2.5'
-    - script: sudo apt-get install libreadline-dev libsqlite3-dev
+    - script: |
+        sudo apt-get update
+        sudo apt-get install libreadline-dev libsqlite3-dev
       displayName: 'Install apt dependencies'
     - script: |
         gem install bundler
