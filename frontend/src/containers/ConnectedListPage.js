@@ -7,7 +7,8 @@ const LIST_STORE = "list";
 const mapStateToProps = ((store) => {
     return {
         page: store[LIST_STORE].page,
-        list: store[LIST_STORE].items,
+        items: store[LIST_STORE].items,
+        itemsCount: store[LIST_STORE].totalCount,
         fetching: store[LIST_STORE].fetching,
         fetchSuccessful: store[LIST_STORE].fetchSuccessful,
         fetchErrorMessage: store[LIST_STORE].fetchErrorMessage,
@@ -16,8 +17,8 @@ const mapStateToProps = ((store) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetch: (page) => {
-            fetchList(page)(dispatch).catch(() => {})
+        fetch: (page, per_page) => {
+            fetchList(page, per_page)(dispatch).catch(() => {})
         }
     }
 };

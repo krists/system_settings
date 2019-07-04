@@ -5,8 +5,12 @@ module SystemSettings
     RETURN_ATTRIBUTES = ["id", "name", "type", "value", "description"].freeze
 
     def index
-      @settings = SystemSettings::Setting.order(:name)
-      render json: @settings.map { |s| s.as_json(only: RETURN_ATTRIBUTES) }
+      @total_count = SystemSettings::Setting.count
+      @settings = SystemSettings::Setting.order(:name).extending(SystemSettings::Pagination).page(params[:page], per_page: params[:per])
+      render json: {
+          items: @settings.map { |s| s.as_json(only: RETURN_ATTRIBUTES) },
+          total_count: @total_count
+      }
     end
 
     def show
