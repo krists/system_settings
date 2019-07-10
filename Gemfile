@@ -20,8 +20,8 @@ gem "sqlite3", "~> #{sqlite3_version}"
 
 gem "pry"
 gem "rubocop"
-gem "capybara", "~> 3.20"
+gem "capybara", "~> 3.25"
 gem "selenium-webdriver", "~> 3.142", ">= 3.142.2"
-gem "webdrivers", "~> 3.9", ">= 3.9.3"
-gem "puma", "~> 3.12", ">= 3.12.1"
+gem "webdrivers", "~> 4.0", ">= 4.1.0"
+gem "puma", "~> 4.0", ">= 4.0.0"
 gem "simplecov", require: false
