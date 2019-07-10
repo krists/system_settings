@@ -18,6 +18,32 @@ class CreateReadUpdateDeleteTest < ApplicationSystemTestCase
     assert_text "50"
   end
 
+  test "pagination" do
+    SystemSettings::Configurator.new do |c|
+      assert c.purge
+      9.times do |n|
+        c.string_list "aaa#{n}", value: "value#{n}"
+      end
+      9.times do |n|
+        c.string_list "bbb#{n}", value: "value#{n}"
+      end
+      9.times do |n|
+        c.string_list "ccc#{n}", value: "value#{n}"
+      end
+      9.times do |n|
+        c.string_list "ddd#{n}", value: "value#{n}"
+      end
+      assert c.persist
+    end
+    visit "/system_settings"
+    assert_text "aaa8"
+    refute_text "ccc7"
+    click_on "2"
+    assert_text "ccc8"
+    assert_text "ddd8"
+    refute_text "aaa8"
+  end
+
   test "view single setting" do
     visit "/system_settings"
     assert_text "default_mail_from"

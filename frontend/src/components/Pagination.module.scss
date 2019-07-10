@@ -1,0 +1,31 @@
+@import "../fonts";
+@import "../colors";
+.pagination {
+  align-self: center;
+  display: flex;
+  list-style: none;
+  font-size: 0.75em;
+  line-height: 1em;
+  user-select: none;
+  padding: 0;
+  margin: 4rem 0 0;
+}
+
+.item {
+  background: $gray05;
+  margin: 3px;
+  border-radius: 3px;
+  &--disabled a {
+    color: $gray40;
+    text-decoration: none !important;
+  }
+  &--active {
+    background: $gray15;
+  }
+}
+
+.link {
+  position: relative;
+  display: block;
+  padding: .5rem .75rem;
+}

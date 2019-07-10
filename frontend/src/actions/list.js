@@ -6,14 +6,12 @@ export const LIST_FETCH_IN_PROGRESS = "LIST_FETCH_IN_PROGRESS";
 export const LIST_FETCH_SUCCESSFUL = "LIST_FETCH_SUCCESSFUL";
 export const LIST_FETCH_FAILED = "LIST_FETCH_FAILED";
 
-export const PER_PAGE = 5;
-
-export function fetchList(page) {
+export function fetchList(page, per_page) {
     return async function (dispatch) {
         const path = apiPath("settings");
         try {
             dispatch({type: LIST_FETCH_IN_PROGRESS});
-            const json = await slowdown(50, ky.get(path, {searchParams: {page: page, per: PER_PAGE}}).json());
+            const json = await slowdown(50, ky.get(path, {searchParams: {page: page, per: per_page}}).json());
             dispatch({type: LIST_FETCH_SUCCESSFUL, data: json, page: page});
         } catch(error) {
 
