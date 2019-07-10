@@ -35,7 +35,7 @@ export class SettingForm extends React.Component {
                         {submitting && <ClassicSpinner wrapperStyle={{marginLeft: "5px"}} size={"1.5em"}/>}
                     </span>
                 </button>
-                <Link className="button" to={`/`}>Cancel</Link>
+                <Link className="button" to={`/`}>Back</Link>
             </ButtonBar>
         </form>;
     }
