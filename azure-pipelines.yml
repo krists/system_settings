@@ -22,7 +22,7 @@ jobs:
           RAILS_VERSION: 5.2.3
           SQLITE3_VERSION: 1.4.1
         rails_60:
-          RAILS_VERSION: 6.0.0.rc1
+          RAILS_VERSION: 6.0.0
           SQLITE3_VERSION: 1.4.1
         rails_master:
           RAILS_VERSION: master
