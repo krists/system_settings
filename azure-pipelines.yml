@@ -43,7 +43,7 @@ jobs:
       displayName: 'prepare database'
     - script: ./bin/rails frontend:install frontend:build
       displayName: 'build frontend application'
-    - script: ./bin/rails test
+    - script: RAILS_ENV=test ./bin/rails test
       displayName: 'run tests'
-    - script: ./bin/rails app:test:system
+    - script: RAILS_ENV=test ./bin/rails app:test:system
       displayName: 'run system tests'
