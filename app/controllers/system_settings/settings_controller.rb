@@ -1,7 +1,5 @@
-require_relative "./application_controller"
-
 module SystemSettings
-  class SettingsController < ApplicationController
+  class SettingsController < SystemSettings::ApplicationController
     RETURN_ATTRIBUTES = ["id", "name", "type", "value", "description"].freeze
 
     def index

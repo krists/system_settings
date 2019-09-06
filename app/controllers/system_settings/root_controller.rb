@@ -1,7 +1,5 @@
-require_relative "./application_controller"
-
 module SystemSettings
-  class RootController < ApplicationController
+  class RootController < SystemSettings::ApplicationController
     def index
       if File.exist?(SystemSettings::Engine.frontend_build_index_html_path)
         render file: SystemSettings::Engine.frontend_build_index_html_path

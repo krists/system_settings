@@ -1,7 +1,5 @@
-require_relative "./setting"
-
 module SystemSettings
-  class BooleanSetting < Setting
+  class BooleanSetting < SystemSettings::Setting
     attribute :value, :boolean
     validates :value, inclusion: [true, false]
   end

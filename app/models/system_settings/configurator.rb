@@ -3,9 +3,9 @@ module SystemSettings
     class << self
       def from_file(file_name, kernel_class: Kernel)
         file_name = file_name.to_path if file_name.respond_to?(:to_path)
-        raise Errors::SettingsReadError, "The file name must either be a String or implement #to_path" unless file_name.is_a?(String)
-        raise Errors::SettingsReadError, "#{file_name} file does not exist" unless File.exist?(file_name)
-        raise Errors::SettingsReadError, "#{file_name} file not readable" unless File.readable?(file_name)
+        raise SystemSettings::Errors::SettingsReadError, "The file name must either be a String or implement #to_path" unless file_name.is_a?(String)
+        raise SystemSettings::Errors::SettingsReadError, "#{file_name} file does not exist" unless File.exist?(file_name)
+        raise SystemSettings::Errors::SettingsReadError, "#{file_name} file not readable" unless File.readable?(file_name)
         SystemSettings.instrument("system_settings.from_file", path: file_name) do |payload|
           file_content = File.read(file_name)
           new(kernel_class: kernel_class).tap do |obj|

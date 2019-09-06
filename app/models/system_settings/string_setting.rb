@@ -1,7 +1,5 @@
-require_relative "./setting"
-
 module SystemSettings
-  class StringSetting < Setting
+  class StringSetting < SystemSettings::Setting
     attribute :value, :string
     validates :value, presence: true
   end

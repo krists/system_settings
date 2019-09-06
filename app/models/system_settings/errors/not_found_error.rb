@@ -1,6 +1,6 @@
 module SystemSettings
   module Errors
-    class NotFoundError < Error
+    class NotFoundError < SystemSettings::Errors::Error
     end
   end
 end

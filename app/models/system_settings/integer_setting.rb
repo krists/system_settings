@@ -1,7 +1,5 @@
-require_relative "./setting"
-
 module SystemSettings
-  class IntegerSetting < Setting
+  class IntegerSetting < SystemSettings::Setting
     attribute :value, :integer
     validates :value, numericality: { only_integer: true }
   end

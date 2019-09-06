@@ -1,6 +1,6 @@
 module SystemSettings
   module Errors
-    class SettingsReadError < Error
+    class SettingsReadError < SystemSettings::Errors::Error
     end
   end
 end
