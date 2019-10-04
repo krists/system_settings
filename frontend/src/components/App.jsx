@@ -1,36 +1,33 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
-import {BrowserRouter as Router, Route, Switch, Link, Redirect} from "react-router-dom";
-
+import {Router, Route, Switch, Link, Redirect} from "react-router-dom";
+import {generatePath} from "react-router"
 import styles from "./App.module.css"
-
 import {NotFoundPage} from "./NotFoundPage";
 import {ConnectedListPage as ListPage} from "../containers/ConnectedListPage";
 import {ConnectedViewPage as ViewPage} from "../containers/ConnectedViewPage";
 import {ConnectedEditPage as EditPage} from "../containers/ConnectedEditPage";
-
+import {ROOT_PATH, LIST_PATH, SETTING_PATH, EDIT_SETTING_PATH} from "../routes/frontend";
 class App extends Component {
     render() {
-        let basename = window.__SYSTEM_SETTINGS_BASENAME__;
-
         return (
-            <Router basename={basename}>
+            <Router history={this.props.history}>
                 <div className={styles["container"]}>
                     <div className={styles["header-wrap"]}>
                         <div className={styles["header"]}>
-                            <Link to={"/"} className={styles["header-name"]}>{this.props.name}</Link>
+                            <Link to={ROOT_PATH} className={styles["header-name"]}>{this.props.name}</Link>
                         </div>
                     </div>
                     <div className={styles["header-spacer"]}/>
                     <div className={styles["content-wrap"]}>
                         <div className={styles["content"]}>
                             <Switch>
-                                <Route exact path="/">
-                                    <Redirect to="/list/1"/>
+                                <Route exact path={ROOT_PATH}>
+                                    <Redirect to={generatePath(LIST_PATH, {page: 1})} />
                                 </Route>
-                                <Route path="/list/:page" component={ListPage}/>
-                                <Route path="/settings/:id/edit" component={EditPage}/>
-                                <Route path="/settings/:id" component={ViewPage}/>
+                                <Route path={LIST_PATH} component={ListPage}/>
+                                <Route path={EDIT_SETTING_PATH} component={EditPage}/>
+                                <Route path={SETTING_PATH} component={ViewPage}/>
                                 <Route component={NotFoundPage}/>
                             </Switch>
                         </div>
@@ -46,7 +43,8 @@ App.defaultProps = {
 };
 
 App.propTypes = {
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    history: PropTypes.object.isRequired
 };
 
 export default App;

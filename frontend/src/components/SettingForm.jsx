@@ -4,7 +4,6 @@ import { Field } from 'redux-form'
 import {LabeledInput} from "./LabeledInput";
 import styles from "./SettingForm.module.css"
 import {ButtonBar} from "./ButtonBar";
-import {Link} from "react-router-dom";
 import ClassicSpinner from "./ClassicSpinner";
 
 export class SettingForm extends React.Component {
@@ -16,7 +15,8 @@ export class SettingForm extends React.Component {
             error,
             pristine,
             submitting,
-            valueInputType
+            valueInputType,
+            backFn
         } =  this.props;
         return <form onSubmit={handleSubmit(myHandleSubmit)}>
             <div className={styles["fields"]}>
@@ -35,7 +35,7 @@ export class SettingForm extends React.Component {
                         {submitting && <ClassicSpinner wrapperStyle={{marginLeft: "5px"}} size={"1.5em"}/>}
                     </span>
                 </button>
-                <Link className="button" to={`/`}>Back</Link>
+                <button className="link" onClick={backFn}>Back</button>
             </ButtonBar>
         </form>;
     }
@@ -60,6 +60,7 @@ export const SettingFormProps = {
     error: PropTypes.string,
     extraClassNames: PropTypes.object,
     submitText: PropTypes.string,
+    backFn: PropTypes.func.isRequired
 };
 
 SettingForm.propTypes = SettingFormProps;

@@ -8,8 +8,14 @@ import styles from "./ViewPage.module.scss"
 import { ButtonBar } from "./ButtonBar";
 import { start as progressBarStart, done as progressBarDone } from "../progress_bar";
 import {Value} from "./Value";
+import {ROOT_PATH} from "../routes/frontend";
 
 export class ViewPage extends Component {
+
+    constructor(props){
+        super(props);
+        this.goBack = this.goBack.bind(this);
+    }
 
     componentDidMount() {
         let { id } = this.props.match.params;
@@ -20,6 +26,15 @@ export class ViewPage extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(!this.props.fetching && prevProps.fetching){
             progressBarDone()
+        }
+    }
+
+    goBack(){
+        let { history } = this.props;
+        if(history.action === "POP") {
+            history.push(ROOT_PATH);
+        } else {
+            history.goBack();
         }
     }
 
@@ -35,7 +50,7 @@ export class ViewPage extends Component {
                 <Attribute name="Value"><Value type={type} value={value}/></Attribute>
                 <ButtonBar>
                     <Link className="button primary" to={`/settings/${id}/edit`}>Edit</Link>
-                    <Link className="button" to={`/`}>Back</Link>
+                    <button className="link" onClick={this.goBack}>Back</button>
                 </ButtonBar>
             </div>
         } else {

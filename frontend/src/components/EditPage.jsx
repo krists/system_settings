@@ -5,8 +5,14 @@ import {Attribute} from "./Attribute";
 import {humanReadableType} from "../utils/secrets";
 import { start as progressBarStart, done as progressBarDone } from "../progress_bar";
 import { PageLoadError } from "./PageLoadError";
+import {ROOT_PATH} from "../routes/frontend";
 
 export class EditPage extends Component {
+
+    constructor(props){
+        super(props);
+        this.goBack = this.goBack.bind(this);
+    }
 
     componentDidMount() {
         let { id } = this.props.match.params;
@@ -39,6 +45,15 @@ export class EditPage extends Component {
         }
     }
 
+    goBack(){
+        let { history } = this.props;
+        if(history.action === "POP") {
+            history.push(ROOT_PATH);
+        } else {
+            history.goBack();
+        }
+    }
+
     render() {
         let { fetching, fetchSuccessful, fetchErrorMessage, authenticityToken, attributes: {id, name, description, type} } = this.props;
         if(fetching){
@@ -48,7 +63,7 @@ export class EditPage extends Component {
                 <Attribute name="Name"><span className="sysname">{name}</span></Attribute>
                 <Attribute name="Type">{humanReadableType(type)}</Attribute>
                 <Attribute name="Description">{description}</Attribute>
-                <SettingForm id={id} authenticityToken={authenticityToken} hint={this.hint(type)} valueInputType={this.valueInputType(type)} />
+                <SettingForm id={id} authenticityToken={authenticityToken} hint={this.hint(type)} valueInputType={this.valueInputType(type)} backFn={this.goBack} />
             </div>
         } else {
             return <PageLoadError description={fetchErrorMessage} />

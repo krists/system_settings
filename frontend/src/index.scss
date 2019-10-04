@@ -65,7 +65,7 @@ button, input[type="submit"], input[type="button"] {
   @include button-colors($gray70, $gray15);
 }
 
-a.button {
+a.button, button.link {
   @include button-colors($gray70, transparent);
   text-decoration: none;
 }

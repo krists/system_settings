@@ -35,7 +35,7 @@ export function fetchSetting(id) {
 }
 
 function addAuthenticityToken(token) {
-    return (options) => options.headers.set("X-CSRF-Token", token);
+    return (input, options) => options.headers.set("X-CSRF-Token", token);
 }
 
 export function saveSetting(id, csrfToken, attributes) {
