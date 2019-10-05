@@ -11,8 +11,8 @@ module SystemSettings
     def page(number = nil, per_page: nil)
       sanitized_per_page = per_page.presence.to_i || default_per_page
       sanitized_per_page = max_per_page if sanitized_per_page > max_per_page
-      sanitized_per_page = default_per_page unless sanitized_per_page > 0
-      limit(sanitized_per_page).offset(sanitized_per_page * ((number = number.to_i - 1) < 0 ? 0 : number))
+      sanitized_per_page = default_per_page unless sanitized_per_page.positive?
+      limit(sanitized_per_page).offset(sanitized_per_page * ((number = number.to_i - 1).negative? ? 0 : number))
     end
   end
 end

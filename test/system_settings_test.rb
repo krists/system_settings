@@ -12,7 +12,7 @@ class SystemSettings::Test < ActiveSupport::TestCase
     end
     expected_message = <<~ERROR.strip
       Couldn't find system setting non_existing
-      
+
       It might not be loaded from settings file(#{SystemSettings.settings_file_path}).
       To load missing settings with their initial values you can call SystemSettings.load from your Rails environment or run Rails task:
 
