@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module SystemSettings
   module Type
     class IntegerList < ActiveModel::Type::Value
-      SEPARATOR = ";".freeze
+      SEPARATOR = ";"
 
       def type
         :integer_list

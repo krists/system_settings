@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SystemSettings
   class RootController < SystemSettings::ApplicationController
     def index

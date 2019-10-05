@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SystemSettings
   module Errors
     class NotFoundError < SystemSettings::Errors::Error

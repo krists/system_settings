@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 SystemSettings::Engine.routes.draw do
   scope "api" do
     resources "settings"

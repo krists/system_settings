@@ -6,6 +6,7 @@ AllCops:
     - "bin/bundle"
     - "bin/rake"
     - "bin/rubocop"
+    - "bin/rails"
     - "test/dummy/db/schema.rb"
 
 StringLiterals:
@@ -26,7 +27,14 @@ Style/ClassVars:
 Style/HashSyntax:
   Enabled: false
 Style/FrozenStringLiteralComment:
-  Enabled: false
+  Enabled: True
+  Exclude:
+    - "Gemfile"
+    - "*.gemspec"
+    - "Rakefile"
+    - "test/**/*"
+    - "db/**/*"
+    - "lib/tasks/**/*"
 Style/StringLiteralsInInterpolation:
   Enabled: false
 Layout/LeadingCommentSpace:

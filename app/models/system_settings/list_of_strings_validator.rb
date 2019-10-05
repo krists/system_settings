@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SystemSettings
   class ListOfStringsValidator < ActiveModel::EachValidator
     NON_WHITESPACE_REGEXP = /[^[:space:]]/.freeze

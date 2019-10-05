@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SystemSettings
   class Engine < ::Rails::Engine
     class << self

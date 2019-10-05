@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SystemSettings
   module Type
     class StringList < ActiveModel::Type::Value

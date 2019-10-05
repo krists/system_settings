@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SystemSettings
   class SettingsController < SystemSettings::ApplicationController
     RETURN_ATTRIBUTES = ["id", "name", "type", "value", "description"].freeze

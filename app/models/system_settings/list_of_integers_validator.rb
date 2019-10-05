@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SystemSettings
   class ListOfIntegersValidator < ActiveModel::EachValidator
     LIST_REGEXP = /\A[+-]?\d+(?:; *[+-]?\d+)*\z/.freeze

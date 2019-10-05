@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "system_settings/engine"
 
 module SystemSettings

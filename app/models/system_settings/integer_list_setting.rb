@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SystemSettings
   class IntegerListSetting < SystemSettings::Setting
     attribute :value, SystemSettings::Type::IntegerList.new

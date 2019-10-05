@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SystemSettings
   class StringListSetting < SystemSettings::Setting
     attribute :value, SystemSettings::Type::StringList.new

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SystemSettings
   module Pagination
     def max_per_page

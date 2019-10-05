@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SystemSettings
   class IntegerSetting < SystemSettings::Setting
     attribute :value, :integer
