@@ -18,7 +18,7 @@ module SystemSettings
     config.after_initialize do
       SystemSettings.instrumenter = ActiveSupport::Notifications
       SystemSettings.settings_file_path = ENV.fetch("SYSTEM_SETTINGS_PATH") do
-        Rails.root.join("config", "system_settings.rb")
+        Rails.root.join("config", "system_settings.rb").to_s
       end
     end
   end

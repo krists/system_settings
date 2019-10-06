@@ -23,7 +23,7 @@ class SystemSettings::Test < ActiveSupport::TestCase
 
   test "settings_file_path" do
     begin
-      assert_kind_of Pathname, SystemSettings.settings_file_path
+      assert_kind_of String, SystemSettings.settings_file_path
       original_value = SystemSettings.settings_file_path
       assert_match(/config\/system_settings\.rb$/, SystemSettings.settings_file_path.to_s)
       SystemSettings.settings_file_path = "/changed/path.rb"
