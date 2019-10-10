@@ -10,7 +10,19 @@ APP_PATH = File.expand_path("../test/dummy/config/application", __dir__)
 ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../Gemfile", __dir__)
 require "bundler/setup" if File.exist?(ENV["BUNDLE_GEMFILE"])
 
-require "rails/all"
+require "rails"
+%w(
+  active_record/railtie
+  action_controller/railtie
+  action_view/railtie
+  rails/test_unit/railtie
+).each do |railtie|
+  begin
+    require railtie
+  rescue LoadError
+  end
+end
+
 
 # There were no system tests when Rails 5.0 came out.
 # Lets skip those when running test task without file pattern
