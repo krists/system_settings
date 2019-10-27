@@ -17,12 +17,9 @@ require "rails"
   action_view/railtie
   rails/test_unit/railtie
 ).each do |railtie|
-  begin
-    require railtie
-  rescue LoadError
-  end
+  require railtie
 end
-
+require "active_support/time"
 
 # There were no system tests when Rails 5.0 came out.
 # Lets skip those when running test task without file pattern
