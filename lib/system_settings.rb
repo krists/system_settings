@@ -25,10 +25,10 @@ module SystemSettings
     end
   end
 
-  def self.load
+  def self.load(*names)
     instrument("system_settings.load", path: settings_file_path) do |payload|
       configurator = Configurator.from_file(settings_file_path)
-      payload[:success] = configurator.persist
+      payload[:success] = configurator.persist(only: names)
     end
   end
 

@@ -55,20 +55,25 @@ module SystemSettings
       add(name, SystemSettings::BooleanSetting, value: value, description: description, &blk)
     end
 
-    def persist
+    def persist(only: [])
       SystemSettings.instrument("system_settings.persist", items: @items) do |payload|
         if settings_table_exists?
           SystemSettings::Setting.transaction do
-            @items.each do |entry|
-              persisted_record = SystemSettings::Setting.find_by(name: entry[:name])
-              if persisted_record
-                if persisted_record.class == entry[:class]
-                  persisted_record.update!(description: entry[:description])
-                else
-                  warn "SystemSettings: Type mismatch detected! Previously #{entry[:name]} had type #{persisted_record.class.name} but you are loading #{entry[:class].name}"
+            if only.empty?
+              @items.each { |item| create_or_update_item(item) }
+            else
+              only.each do |wanted_name|
+                item = @items.find { |i| i[:name] == wanted_name } || begin
+                  loaded_names = @items.empty? ? "(none)" : @items.map{ |i| i[:name] }.join("\n")
+                  message = <<~MESSAGE.strip
+                    Couldn't persist system setting #{wanted_name}. There are no items by this name. Could it be a typo?
+
+                    Configurator has loaded following items:
+                    #{loaded_names}
+                  MESSAGE
+                  raise(SystemSettings::Errors::NotLoadedError, message)
                 end
-              else
-                entry[:class].create!(name: entry[:name], value: entry[:value], description: entry[:description])
+                create_or_update_item(item)
               end
             end
           end
@@ -105,6 +110,19 @@ module SystemSettings
       value = yield(value) if block_given?
       value = value.call if value.is_a?(Proc)
       @items.push(name: name, class: class_const, value: value, description: description)
+    end
+
+    def create_or_update_item(item)
+      persisted_record = SystemSettings::Setting.find_by(name: item[:name])
+      if persisted_record
+        if persisted_record.class == item[:class]
+          persisted_record.update!(description: item[:description])
+        else
+          warn "SystemSettings: Type mismatch detected! Previously #{item[:name]} had type #{persisted_record.class.name} but you are loading #{item[:class].name}"
+        end
+      else
+        item[:class].create!(name: item[:name], value: item[:value], description: item[:description])
+      end
     end
   end
 end

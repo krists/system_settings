@@ -38,13 +38,36 @@ class SystemSettings::Test < ActiveSupport::TestCase
       original_value = SystemSettings.settings_file_path
       SystemSettings.settings_file_path = "/changed/path.rb"
       mock = MiniTest::Mock.new
-      mock.expect(:persist, nil)
+      mock.expect(:persist, nil) do |only:|
+        only.empty?
+      end
       from_file_method_proc = lambda do |path|
         assert_equal "/changed/path.rb", path
         mock
       end
       SystemSettings::Configurator.stub(:from_file, from_file_method_proc) do
         SystemSettings.load
+      end
+      mock.verify
+    ensure
+      SystemSettings.settings_file_path = original_value
+    end
+  end
+
+  test "partial load" do
+    begin
+      original_value = SystemSettings.settings_file_path
+      SystemSettings.settings_file_path = "/partial.rb"
+      mock = MiniTest::Mock.new
+      mock.expect(:persist, nil) do |only:|
+        only == [:one, :two]
+      end
+      from_file_method_proc = lambda do |path|
+        assert_equal "/partial.rb", path
+        mock
+      end
+      SystemSettings::Configurator.stub(:from_file, from_file_method_proc) do
+        SystemSettings.load(:one, :two)
       end
       mock.verify
     ensure

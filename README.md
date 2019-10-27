@@ -93,7 +93,9 @@ If you would like to store your settings somewhere else than `config/system_sett
 
 ## Using System Settings in tests
 
-Your test suite probably clears database before/after every test example. Fortunately is very easy to load fresh settings from configuration file. It can be done by running `SystemSettings.load`.
+Your test suite probably clears database before/after every test example. Fortunately is very easy to load fresh settings from configuration file.
+It can be done by running `SystemSettings.load`. It will persist all loaded settings. But if you would like to persist only a subset of loaded settings run `SystemSettings.load(:one, :two, :three)`.
+
 And if you modify settings values in test example you can reset to defaults with `SystemSettings.reset_to_defaults`.
 
 

@@ -46,6 +46,74 @@ module SystemSettings
       assert_equal %w[123 456], SystemSettings[:test_string_list]
     end
 
+    test "full persist" do
+      SystemSettings::Configurator.new do |c|
+        assert c.purge
+        c.integer :foo, value: 1
+        c.integer :bar, value: 2
+        c.integer :baz, value: 3
+        assert c.persist
+      end
+      assert_equal 1, SystemSettings[:foo]
+      assert_equal 2, SystemSettings[:bar]
+    end
+
+    test "partial persist" do
+      SystemSettings::Configurator.new do |c|
+        assert c.purge
+        c.integer :foo, value: 1
+        c.integer :bar, value: 2
+        c.integer :baz, value: 3
+        assert c.persist(only: [:foo, :baz])
+      end
+      assert_equal 1, SystemSettings[:foo]
+      assert_raises SystemSettings::Errors::NotFoundError do
+        SystemSettings[:bar]
+      end
+      assert_equal 3, SystemSettings[:baz]
+    end
+
+    test "partial persist with invalid name" do
+      called = false
+      SystemSettings::Configurator.new do |c|
+        assert c.purge
+        c.integer :foo, value: 1
+        c.integer :bar, value: 2
+        error = assert_raises SystemSettings::Errors::NotLoadedError do
+          c.persist(only: [:nope])
+        end
+        expected_message = <<~MESSAGE.strip
+          Couldn't persist system setting nope. There are no items by this name. Could it be a typo?
+
+          Configurator has loaded following items:
+          foo
+          bar
+        MESSAGE
+        assert_equal expected_message, error.message
+        called = true
+      end
+      assert called
+    end
+
+    test "partial load with no items" do
+      called = false
+      SystemSettings::Configurator.new do |c|
+        assert c.purge
+        error = assert_raises SystemSettings::Errors::NotLoadedError do
+          c.persist(only: [:first])
+        end
+        expected_message = <<~MESSAGE.strip
+          Couldn't persist system setting first. There are no items by this name. Could it be a typo?
+
+          Configurator has loaded following items:
+          (none)
+        MESSAGE
+        assert_equal expected_message, error.message
+        called = true
+      end
+      assert called
+    end
+
     test "integer list setting" do
       SystemSettings::Configurator.new do |c|
         assert c.purge
