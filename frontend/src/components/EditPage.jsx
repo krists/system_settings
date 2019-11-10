@@ -31,6 +31,8 @@ export class EditPage extends Component {
             case "SystemSettings::StringListSetting":
             case "SystemSettings::IntegerListSetting":
                 return <>Separate values by <code>;</code> character.</>;
+            case "SystemSettings::DecimalListSetting":
+                return <>Decimal separator is the <code>.</code> character. Separate multiple values by <code>;</code> character. </>;
             default:
                 return null
         }

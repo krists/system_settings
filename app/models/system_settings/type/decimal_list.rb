@@ -2,20 +2,25 @@
 
 module SystemSettings
   module Type
-    class IntegerList < ActiveModel::Type::Value
+    class DecimalList < ActiveModel::Type::Value
       SEPARATOR = ";"
 
       def initialize(precision: nil, limit: nil, scale: nil)
         super
-        @single_type = ActiveModel::Type::Integer.new(precision: precision, limit: limit, scale: scale)
+        @single_type = ActiveModel::Type::Decimal.new(precision: precision, limit: limit, scale: scale)
       end
 
       def type
-        :integer_list
+        :decimal_list
       end
 
       def deserialize(value)
-        value.presence && JSON.parse(value)
+        result = value.presence && JSON.parse(value)
+        if result.is_a?(Array)
+          result.map { |v| @single_type.cast(v) }
+        else
+          result
+        end
       end
 
       def serialize(value)

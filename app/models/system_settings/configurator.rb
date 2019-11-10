@@ -55,6 +55,14 @@ module SystemSettings
       add(name, SystemSettings::BooleanSetting, value: value, description: description, &blk)
     end
 
+    def decimal(name, value: nil, description: nil, &blk)
+      add(name, SystemSettings::DecimalSetting, value: value, description: description, &blk)
+    end
+
+    def decimal_list(name, value: nil, description: nil, &blk)
+      add(name, SystemSettings::DecimalListSetting, value: value || [], description: description, &blk)
+    end
+
     def persist(only: [])
       SystemSettings.instrument("system_settings.persist", items: @items) do |payload|
         if settings_table_exists?

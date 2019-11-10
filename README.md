@@ -42,10 +42,14 @@ string :default_locale, value: "en"
 integer :default_records_per_page, value: 25
 integer :remainder_interval_in_hours, value: 48
 
-# Array type strings and integers
+# Decimal values
+decimal :max_temp, value: 95.2
+
+# Array type strings, integers and decimals
 string_list :admin_emails, description: "Will receive alerts"
 string_list :upload_allowed_extensions, value: ["docx", "pdf", "txt"]
 integer_list :lucky_numbers, description: "Prime numbers are more effective", value: [2, 3, 5, 11]
+decimal_list :allowed_multipliers, value: [12.3, 99, BigDecimal("-87")]
 ```
 
 Load values from `config/system_settings.rb` into database:

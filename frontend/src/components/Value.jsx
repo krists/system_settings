@@ -8,6 +8,7 @@ export class Value extends React.Component {
         switch(type) {
             case "SystemSettings::StringListSetting":
             case "SystemSettings::IntegerListSetting":
+            case "SystemSettings::DecimalListSetting":
                 if(value){
                     return value.map((v, i) => <span key={i} className={styles["section"]}>{v.toString()}</span>)
                 } else {
