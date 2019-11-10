@@ -16,6 +16,12 @@ en:
       system_settings/string_setting:
         one: "System Setting (String)"
         other: "System Settings (String)"
+      system_settings/decimal_setting:
+        one: "System Setting (Decimal)"
+        other: "System Settings (Decimal)"
+      system_settings/decimal_list_setting:
+        one: "System Setting (Decimal list)"
+        other: "System Settings (Decimal list)"
     attributes:
       system_settings/setting:
         id: "ID"
@@ -31,6 +37,7 @@ en:
             value:
               not_a_list_of_integers: "not a list of integers"
               not_a_list_of_strings: "not a list of strings"
+              not_a_list_of_decimals: "not a list of decimals"
         system_settings/boolean_setting:
           attributes:
             value:

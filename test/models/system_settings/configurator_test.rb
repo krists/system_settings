@@ -136,6 +136,26 @@ module SystemSettings
       assert_equal true, SystemSettings[:bar]
     end
 
+    test "decimal setting" do
+      SystemSettings::Configurator.new do |c|
+        assert c.purge
+        c.decimal :foo, value: BigDecimal("123.456")
+        assert c.persist
+      end
+      assert_equal 123.456, SystemSettings[:foo]
+    end
+
+    test "decimal list setting" do
+      SystemSettings::Configurator.new do |c|
+        assert c.purge
+        c.decimal_list :foo, value: []
+        c.decimal_list :bar, value: [11.22, BigDecimal("46.7")]
+        assert c.persist
+      end
+      assert_equal [], SystemSettings[:foo]
+      assert_equal [11.22, 46.7], SystemSettings[:bar]
+    end
+
     test "warn about type mismatch" do
       SystemSettings.load
       assert_equal 50, SystemSettings[:default_records_per_page]
