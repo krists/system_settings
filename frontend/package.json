@@ -5,7 +5,7 @@
   "homepage": "/system_settings",
   "dependencies": {
     "http-proxy-middleware": "^0.20.0",
-    "ky": "^0.16.1",
+    "ky": "^0.17.0",
     "node-sass": "^4.13.0",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
