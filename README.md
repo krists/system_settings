@@ -105,13 +105,8 @@ And if you modify settings values in test example you can reset to defaults with
 
 ## Development
 
-Required development dependencies:
-* [Node.js](https://nodejs.org/) - JavaScript runtime
-* [Yarn](https://yarnpkg.com/) - package manager
-
 Optional development tools:
-* [overmind](https://github.com/DarthSim/overmind) - Process manager for Procfile-based applications and tmux
-* [direnv](https://direnv.net/) - Unclutter your .profile 
+* [direnv](https://direnv.net/) - Unclutter your .profile
 
 Required environment variables:
 * `RAILS_VERSION`
@@ -126,10 +121,6 @@ Getting started with development:
 1) `RAILS_VERSION=5.2.3 SQLITE3_VERSION=1.4.1 bundle`
 2) `RAILS_VERSION=5.2.3 SQLITE3_VERSION=1.4.1 ./bin/rails db:create db:migrate`
 3) `RAILS_VERSION=5.2.3 SQLITE3_VERSION=1.4.1 ./bin/rails test`
-4) `RAILS_VERSION=5.2.3 SQLITE3_VERSION=1.4.1 ./bin/rails frontend:install`
-4) `RAILS_VERSION=5.2.3 SQLITE3_VERSION=1.4.1 ./bin/rails app:system_settings:load`
-4) `RAILS_VERSION=5.2.3 SQLITE3_VERSION=1.4.1 overmind start`
-
 
 ## Build status
 System Settings is being tested with Rails versions - `5.0`, `5.1`, `5.2`, `6.0`, `rails repo master branch`
