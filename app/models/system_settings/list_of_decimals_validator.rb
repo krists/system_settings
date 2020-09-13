@@ -20,7 +20,7 @@ module SystemSettings
 
     def record_attribute_changed_in_place?(record, attr_name)
       record.respond_to?(:attribute_changed_in_place?) &&
-          record.attribute_changed_in_place?(attr_name.to_s)
+        record.attribute_changed_in_place?(attr_name.to_s)
     end
 
     def matches_list_of_decimals_regexp?(raw_value)

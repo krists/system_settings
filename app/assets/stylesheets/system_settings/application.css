@@ -1,0 +1,237 @@
+html {
+    box-sizing: border-box;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-y: scroll;
+}
+
+*, *:before, *:after {box-sizing: inherit;}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    color: #233656;
+    background: white;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+header {
+    border-bottom: 1px solid #e1e1e1;
+    height: 2rem;
+    padding: 0.5rem 0;
+    box-sizing: content-box;
+    background: white;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+
+main {
+    padding: 3rem 0;
+}
+
+header .container,
+main .container {
+    max-width: 1020px;
+    margin: 0 auto;
+}
+
+a { color: #233656; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.app-name, .app-name:hover, .app-name:active {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: bold;
+    user-select: none;
+    text-decoration: none;
+}
+
+.sys-name {
+    display: inline-block;
+    background: #f2f2f2;
+    border-radius: 3px;
+    padding: 0 0.5em;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.75em;
+    max-width: 100%;
+}
+
+table th {
+    text-align: left;
+}
+
+.settings-table {
+    width: 100%;
+    table-layout: fixed;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.settings-table td:empty:after {
+    content: "-";
+}
+
+.settings-table .name {
+    width: 20%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.settings-table .description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50%;
+}
+
+.settings-table .value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.settings-table tbody td.no-entries {
+    color: #737373;
+    padding-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.settings-table tfoot td {
+    font-size: 0.8em;
+    padding-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.settings-table .value .value-part, .attribute .value .value-part {
+    max-width: 100%;
+    margin-right: 0.25em;
+}
+
+.settings-table .value .value-part:last-child, .attribute .value .value-part:last-child {
+    margin-right: 0;
+}
+
+.attribute {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.attribute .name {
+    font-size: 0.8em;
+    color: #737373;
+    user-select: none;
+}
+
+.attribute .value {
+    align-self: flex-start;
+}
+.attribute .value:empty:after {
+    content: "-";
+}
+
+.attribute .field_with_errors .name, .attribute .errors {
+    color: #d01d1d;
+}
+.attribute .hint {
+    font-size: 0.8em;
+    display: block;
+}
+
+.buttons {
+    border-top: 1px dotted #f2f2f2;
+    padding-top: 1rem;
+    margin-bottom: 1rem;
+}
+.buttons > * {
+    margin-right: 0.5rem;
+}
+
+button, input[type=submit], input[type=button], a.button {
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    user-select: none;
+    white-space: nowrap;
+}
+
+button, input[type=submit], input[type=button] {
+    color: #4d4d4d;
+    background-color: #d9d9d9;
+    transition: background-color 0.1s ease-in-out;
+    outline: none;
+}
+
+button:focus, button:hover, input[type=submit]:focus, input[type=submit]:hover, input[type=button]:focus, input[type=button]:hover {
+    background-color: #b8b8b8;
+}
+
+button:active, input[type=submit]:active, input[type=button]:active {
+    background-color: #828282;
+}
+
+a.button {
+    color: #4d4d4d;
+    background-color: transparent;
+    transition: background-color 0.1s ease-in-out;
+    outline: none;
+    text-decoration: none;
+}
+
+a.button:focus, a.button:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+a.button:active {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+button.primary, input[type=submit].primary, input[type=button].primary, a.button.primary {
+    color: #4d4d4d;
+    background-color: #a6a6a6;
+    transition: background-color 0.1s ease-in-out;
+    outline: none;
+}
+
+button.primary:focus, button.primary:hover, input[type=submit].primary:focus, input[type=submit].primary:hover, input[type=button].primary:focus, input[type=button].primary:hover, a.button.primary:focus, a.button.primary:hover {
+    background-color: #8d8d8d;
+}
+
+button.primary:active, input[type=submit].primary:active, input[type=button].primary:active, a.button.primary:active {
+    background-color: #646464;
+}
+
+input[type=text] {
+    border: none;
+    border-radius: 3px;
+    padding: 0.5em;
+    font-size: 1rem;
+    line-height: normal;
+    color: #4d4d4d;
+    background-color: #e6e6e6;
+    transition: background-color 0.1s ease-in-out;
+    outline: none;
+    box-sizing: content-box;
+    width: auto;
+    min-width: 12ch;
+    max-width: calc(100% - 2em);
+    will-change: width;
+}
+
+input[type=text]:focus {
+    background-color: #c4c4c4;
+}
+
+input[type=text]:active {
+    background-color: #bfbfbf;
+}

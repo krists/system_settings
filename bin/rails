@@ -19,6 +19,7 @@ require "rails"
 ).each do |railtie|
   require railtie
 end
+require "sprockets/railtie"
 require "active_support/time"
 
 # There were no system tests when Rails 5.0 came out.

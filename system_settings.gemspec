@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
     Initial setting values can be loaded from file and later edited in a SystemSettings provided admin panel.
   DESCRIPTION
   s.license = "MIT"
-  s.files = Dir["{app,config,db,lib}/**/*", "frontend/build/**/*", "MIT-LICENSE", "README.md"]
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "README.md"]
   s.add_dependency "rails", ">= 5.0"
   s.required_ruby_version = ">= 2.4.0"
 end

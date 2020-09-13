@@ -17,16 +17,16 @@ jobs:
           SQLITE3_VERSION: 1.3.13
         rails_51:
           RAILS_VERSION: 5.1.7
-          SQLITE3_VERSION: 1.4.1
+          SQLITE3_VERSION: 1.4.2
         rails_52:
-          RAILS_VERSION: 5.2.3
-          SQLITE3_VERSION: 1.4.1
+          RAILS_VERSION: 5.2.4.4
+          SQLITE3_VERSION: 1.4.2
         rails_60:
-          RAILS_VERSION: 6.0.0
-          SQLITE3_VERSION: 1.4.1
+          RAILS_VERSION: 6.0.3.3
+          SQLITE3_VERSION: 1.4.2
         rails_master:
           RAILS_VERSION: master
-          SQLITE3_VERSION: 1.4.1
+          SQLITE3_VERSION: 1.4.2
     steps:
     - task: UseRubyVersion@0
       inputs:
@@ -35,14 +35,14 @@ jobs:
         sudo apt-get update
         sudo apt-get install libreadline-dev libsqlite3-dev
       displayName: 'Install apt dependencies'
+    - script: gem update --system --no-doc
+      displayName: 'update rubygems'
     - script: |
         gem install bundler
         bundle install --retry=3 --jobs=4
       displayName: 'bundle install'
     - script: ./bin/rails db:create db:migrate
       displayName: 'prepare database'
-    - script: ./bin/rails frontend:install frontend:build
-      displayName: 'build frontend application'
     - script: RAILS_ENV=test ./bin/rails test
       displayName: 'run tests'
     - script: RAILS_ENV=test ./bin/rails app:test:system

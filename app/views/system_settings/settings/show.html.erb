@@ -1,0 +1,9 @@
+<%= render "common_attributes", setting: @setting %>
+<div class="attribute">
+  <div class="name"><%= @setting.class.human_attribute_name(:value) %></div>
+  <div class="value"><%= format_value @setting.value %></div>
+</div>
+<div class="buttons">
+  <%= link_to t(".edit"), edit_setting_path(@setting), class: "button primary" %>
+  <%= link_to t(".back"), root_path, class: "button" %>
+</div>

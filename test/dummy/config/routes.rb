@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
   mount SystemSettings::Engine => "/system_settings"
-  root to: "dashboard#index"
+  root to: redirect("/system_settings")
 end

@@ -1,0 +1,18 @@
+<%= form_for setting, as: :setting, url: setting_path(setting), method: "post" do |f| %>
+  <div class="attribute">
+    <%= f.label :value, class: "name" %>
+    <% if f.object.is_a?(SystemSettings::BooleanSetting) %>
+      <%= f.check_box :value, value: f.object.value %>
+    <% else %>
+      <%= f.text_field :value, value: format_value_for_form(f.object), class: "value" %>
+    <% end %>
+    <% if f.object.errors.messages[:value].any? %>
+      <div class="errors"><%= f.object.errors.messages[:value].join("; ") %></div>
+    <% end %>
+    <div class="hint"><%= t(f.object.type, scope: "system_settings.settings.form.hints_by_type", default: "").html_safe %></div>
+  </div>
+  <div class="buttons">
+  <%= f.submit t(".save"), class: "primary" %>
+  <%= link_to t(".back"), root_path, class: "button" %>
+  </div>
+<% end %>
