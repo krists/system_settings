@@ -6,6 +6,8 @@
 trigger:
 - master
 
+variables:
+  CC_TEST_REPORTER_ID: 62bb05348b93ecd0bfb92bd12dbc302a9333e854b56575b4eca13b5ae29c16cd
 jobs:
   - job: test
     pool:
@@ -24,6 +26,7 @@ jobs:
         rails_60:
           RAILS_VERSION: 6.0.3.3
           SQLITE3_VERSION: 1.4.2
+          SUBMIT_COVERAGE: true
         rails_master:
           RAILS_VERSION: master
           SQLITE3_VERSION: 1.4.2
@@ -34,16 +37,29 @@ jobs:
     - script: |
         sudo apt-get update
         sudo apt-get install libreadline-dev libsqlite3-dev
-      displayName: 'Install apt dependencies'
+      displayName: 'Install system dependencies'
+    - script: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./bin/cc-test-reporter
+        chmod +x ./bin/cc-test-reporter
+      displayName: 'Download Code Climate test reporter'
+      condition: 'and(succeeded(), eq(variables.SUBMIT_COVERAGE, true))'
     - script: gem update --system --no-doc
-      displayName: 'update rubygems'
+      displayName: 'Update rubygems'
     - script: |
         gem install bundler
         bundle install --retry=3 --jobs=4
-      displayName: 'bundle install'
+      displayName: 'Install Ruby dependencies'
     - script: ./bin/rails db:create db:migrate
-      displayName: 'prepare database'
+      displayName: 'Prepare database'
+    - script: ./bin/cc-test-reporter before-build
+      displayName: 'Run Code Climate before-build'
+      condition: 'and(succeeded(), eq(variables.SUBMIT_COVERAGE, true))'
     - script: RAILS_ENV=test ./bin/rails test
-      displayName: 'run tests'
+      displayName: 'Run tests'
     - script: RAILS_ENV=test ./bin/rails app:test:system
-      displayName: 'run system tests'
+      displayName: 'Run system tests'
+    - script: |
+        ./bin/cc-test-reporter format-coverage -t simplecov
+        ./bin/cc-test-reporter upload-coverage
+      displayName: 'Run Code Climate after-build'
+      condition: 'and(succeeded(), eq(variables.SUBMIT_COVERAGE, true))'
