@@ -126,7 +126,8 @@ Getting started with development:
 System Settings is being tested with Rails versions - `5.0`, `5.1`, `5.2`, `6.0`, `rails repo master branch`
 
 [![Build Status](https://dev.azure.com/kristsozols/System%20Settings/_apis/build/status/krists.system_settings?branchName=master)](https://dev.azure.com/kristsozols/System%20Settings/_build/latest?definitionId=1&branchName=master)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/3ad889ca36f62bad04dc/maintainability)](https://codeclimate.com/github/krists/system_settings/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/3ad889ca36f62bad04dc/test_coverage)](https://codeclimate.com/github/krists/system_settings/test_coverage)
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
