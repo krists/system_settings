@@ -1,0 +1,29 @@
+<table class="settings-table">
+  <thead>
+    <tr>
+      <th class="name"><%= SystemSettings::Setting.human_attribute_name(:name) %></th>
+      <th class="description"><%= SystemSettings::Setting.human_attribute_name(:description) %></th>
+      <th class="value"><%= SystemSettings::Setting.human_attribute_name(:value) %></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% if @settings.any? %>
+    <% @settings.each do |setting| %>
+      <tr>
+        <td class="name"><%= link_to setting.name, setting_path(setting), class: "sys-name" %></td>
+        <td class="description"><%= setting.description %></td>
+        <td class="value"><%= format_value setting.value %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <td colspan="3" class="no-entries"><%= t(".no_settings").html_safe %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3"><%= t(".add_new", path: display_settings_file_path).html_safe %></td>
+    </tr>
+  </tfoot>
+</table>

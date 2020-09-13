@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 SystemSettings::Engine.routes.draw do
-  scope "api" do
-    resources "settings"
+  resources :settings, only: [:show, :edit] do
+    member do
+      post "/", to: "settings#update"
+    end
   end
-  root to: "root#index"
-  get "*rest", to: "root#index", as: :catch_all
+  root to: "settings#index"
 end

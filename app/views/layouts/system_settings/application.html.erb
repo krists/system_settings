@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>System Settings - <%= SystemSettings::VERSION %></title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag 'system_settings/application', media: 'all' %>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <%= link_to "System Settings", root_path, class: "app-name" %>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <%= yield %>
+      </div>
+    </main>
+  </body>
+</html>

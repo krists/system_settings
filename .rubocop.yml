@@ -2,7 +2,6 @@ AllCops:
   TargetRubyVersion: 2.4
   DisplayCopNames: true
   Exclude:
-    - "frontend/**/*"
     - "bin/bundle"
     - "bin/rake"
     - "bin/rubocop"
@@ -43,11 +42,11 @@ Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 Layout/ExtraSpacing:
   Enabled: false
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: false
 Style/EachWithObject:
   Enabled: false

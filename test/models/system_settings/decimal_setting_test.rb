@@ -23,7 +23,6 @@ module SystemSettings
       assert_kind_of(BigDecimal, @record.value)
     end
 
-
     test "scale" do
       @record.value = "1.234567898765432"
       assert_equal "1.234568", @record.value.to_s

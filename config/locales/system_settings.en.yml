@@ -22,11 +22,15 @@ en:
       system_settings/decimal_list_setting:
         one: "System Setting (Decimal list)"
         other: "System Settings (Decimal list)"
+      system_settings/boolean_setting:
+        one: "System Setting (Boolean)"
+        other: "System Settings (Boolean)"
     attributes:
       system_settings/setting:
         id: "ID"
         name: "Name"
         type: "Type"
+        value: "Value"
         description: "Description"
         created_at: "Created at"
         uploaded_at: "Updated at"
@@ -42,3 +46,18 @@ en:
           attributes:
             value:
               inclusion: "must be set to true or false"
+  system_settings:
+    settings:
+      index:
+        no_settings: "No settings"
+        add_new: "Add new entries in <code>%{path}</code>"
+      show:
+        edit: Edit
+        back: Back
+      form:
+        save: Save
+        back: Back
+        hints_by_type:
+          "SystemSettings::StringListSetting": "Separate values by <code>;</code> character."
+          "SystemSettings::IntegerListSetting": "Separate values by <code>;</code> character."
+          "SystemSettings::DecimalListSetting": "Decimal separator is the <code>.</code> character. Separate multiple values by <code>;</code> character."

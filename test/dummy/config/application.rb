@@ -19,7 +19,6 @@ module Dummy
       ActiveSupport.halt_callback_chains_on_return_false = false
       config.ssl_options = { hsts: { subdomains: true } }
     end
-    config.api_only = true
     config.session_store :cookie_store, key: "system_settings_sid_#{Rails.env}"
     config.middleware.use ActionDispatch::Cookies # Required for all session management
     config.middleware.use ActionDispatch::Session::CookieStore, config.session_options

@@ -1,0 +1,14 @@
+<div class="attribute">
+  <div class="name"><%= setting.class.human_attribute_name(:name) %></div>
+  <div class="value">
+    <span class="sys-name"><%= setting.name %></span>
+  </div>
+</div>
+<div class="attribute">
+  <div class="name"><%= setting.class.human_attribute_name(:type) %></div>
+  <div class="value"><%= setting.model_name.human %></div>
+</div>
+<div class="attribute">
+  <div class="name"><%= setting.class.human_attribute_name(:description) %></div>
+  <div class="value"><%= setting.description %></div>
+</div>
