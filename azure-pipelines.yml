@@ -59,7 +59,7 @@ jobs:
     - script: RAILS_ENV=test ./bin/rails app:test:system
       displayName: 'Run system tests'
     - script: |
-        ./bin/cc-test-reporter format-coverage -t simplecov
-        ./bin/cc-test-reporter upload-coverage
+        ./bin/cc-test-reporter format-coverage -t simplecov -d
+        ./bin/cc-test-reporter upload-coverage -d
       displayName: 'Run Code Climate after-build'
       condition: 'and(succeeded(), eq(variables.SUBMIT_COVERAGE, true))'
