@@ -8,6 +8,8 @@ trigger:
 
 variables:
   CC_TEST_REPORTER_ID: 62bb05348b93ecd0bfb92bd12dbc302a9333e854b56575b4eca13b5ae29c16cd
+  GIT_COMMIT_SHA: $(Build.SourceVersion)
+  GIT_BRANCH: $(Build.SourceBranchName)
 jobs:
   - job: test
     pool:
