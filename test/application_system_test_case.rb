@@ -1,7 +1,7 @@
 require "test_helper"
 require "webdrivers/chromedriver"
 
-SimpleCov.command_name 'test:system'
+SimpleCov.command_name "test:system"
 
 WEBDRIVERS_INSTALL_DIR = File.join(File.expand_path("..", __dir__), "tmp", "webdrivers").to_s
 CAPYBARA_SCREENSHOTS_DIR = File.join(File.expand_path("..", __dir__), "tmp", "screenshots").to_s
