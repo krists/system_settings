@@ -77,6 +77,17 @@ class CreateReadUpdateDeleteTest < ApplicationSystemTestCase
     assert_selector "span", text: "ddd"
   end
 
+  test "validations" do
+    visit "/system_settings"
+    click_on "default_mail_from"
+    click_on "Edit"
+    assert_field "Value", with: "Example Company <noreply@example.com>"
+    fill_in "Value", with: "", fill_options: { clear: :backspace }
+    click_button "Save"
+    assert_text "can't be blank"
+    assert_equal "Example Company <noreply@example.com>", SystemSettings[:default_mail_from]
+  end
+
   test "boolean setting" do
     SystemSettings::Configurator.new do |c|
       c.boolean :bool_x, value: true

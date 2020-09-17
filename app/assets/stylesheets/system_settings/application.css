@@ -78,23 +78,13 @@ table th {
     content: "-";
 }
 
-.settings-table .name {
-    width: 20%;
+.settings-table td {
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.settings-table .description {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 50%;
-}
-
-.settings-table .value {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+.settings-table .description { width: 35% }
+.settings-table .value { width: 25% }
 
 .settings-table tbody td.no-entries {
     color: #737373;
