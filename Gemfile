@@ -26,6 +26,6 @@ gem "pry"
 gem "rubocop"
 gem "capybara", "~> 3.33"
 gem "selenium-webdriver", "~> 3.142", ">= 3.142.7"
-gem "webdrivers", "~> 4.0", ">= 4.4.1"
+gem "webdrivers", "~> 4.0", ">= 4.4.1", require: false
 gem "puma", "~> 4.0", ">= 4.0.0"
 gem "simplecov", "~> 0.17.1", require: false

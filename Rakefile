@@ -36,3 +36,5 @@ if ([Rails::VERSION::MAJOR, Rails::VERSION::MINOR].join(".") == "5.0") && !Rake:
     warn "You are running Rails 5.0. System tests where added to Rails in version 5.1. Doing nothing.."
   end
 end
+
+load "webdrivers/tasks/chromedriver.rake"
