@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-module SystemSettings
-  module Errors
-    class NotFoundError < SystemSettings::Errors::Error
-    end
+module SystemSettings::Errors
+  class NotFoundError < SystemSettings::Errors::Error
   end
 end

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module SystemSettings::ApplicationHelper
-  SEPARATOR = ";".freeze
+  SEPARATOR = ";"
 
   def format_value(value)
     if value.respond_to?(:each)

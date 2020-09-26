@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-module SystemSettings
-  module Errors
-    class SettingsReadError < SystemSettings::Errors::Error
-    end
+module SystemSettings::Errors
+  class SettingsReadError < SystemSettings::Errors::Error
   end
 end

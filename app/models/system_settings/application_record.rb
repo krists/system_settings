@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-module SystemSettings
-  class ApplicationRecord < ActiveRecord::Base
-    self.abstract_class = true
-  end
+class SystemSettings::ApplicationRecord < ActiveRecord::Base
+  self.abstract_class = true
 end

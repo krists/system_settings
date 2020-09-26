@@ -41,7 +41,10 @@ Layout/LeadingCommentSpace:
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 Style/ClassAndModuleChildren:
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: compact
+  Include:
+    - app/**/*.rb
 Layout/HashAlignment:
   Enabled: false
 Layout/ExtraSpacing:
