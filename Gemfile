@@ -21,6 +21,7 @@ gem "sqlite3", "~> #{sqlite3_version}"
 sprockets_version = ENV.fetch("SPROCKETS_VERSION", "4.0.2")
 
 gem "sprockets", "~> #{sprockets_version}"
+gem "sprockets-rails"
 
 gem "pry"
 gem "rubocop"
