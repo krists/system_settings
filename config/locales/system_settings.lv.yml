@@ -1,0 +1,65 @@
+lv:
+  activerecord:
+    models:
+      system_settings/setting:
+        one: "Sistēmas iestatījums"
+        other: "Sistēmas iestatījumi"
+      system_settings/integer_list_setting:
+        one: "Sistēmas iestatījums (Veselu skaitļu virkne)"
+        other: "Sistēmas iestatījumi (Veselu skaitļu virkne)"
+      system_settings/integer_setting:
+        one: "Sistēmas iestatījums (Vesels skaitlis)"
+        other: "Sistēmas iestatījumi (Veseli skaitļi)"
+      system_settings/string_list_setting:
+        one: "Sistēmas iestatījums (Vārdu virkne)"
+        other: "Sistēmas iestatījumi (Vārdu virkne)"
+      system_settings/string_setting:
+        one: "Sistēmas iestatījums (Vārds)"
+        other: "Sistēmas iestatījumi (Vārds)"
+      system_settings/decimal_setting:
+        one: "Sistēmas iestatījums (Decimālskaitlis)"
+        other: "Sistēmas iestatījumi (Decimālskaitļi)"
+      system_settings/decimal_list_setting:
+        one: "Sistēmas iestatījums (Decimālskaitļu virkne)"
+        other: "Sistēmas iestatījumi (Decimālskaitļu virkne)"
+      system_settings/boolean_setting:
+        one: "Sistēmas iestatījums (Patiesumvērtība)"
+        other: "Sistēmas iestatījumi (Patiesumvērtības)"
+    attributes:
+      system_settings/setting:
+        id: "ID"
+        name: "Nosaukums"
+        type: "Tips"
+        value: "Vērtība"
+        description: "Apraksts"
+        created_at: "Izveides datums"
+        uploaded_at: "Atjaunošanas datums"
+    errors:
+      models:
+        system_settings/setting:
+          attributes:
+            value:
+              blank: "vērtībai ir jābūt aizpildītai"
+              not_a_number: "vērtība nav skaitlis"
+              not_a_list_of_integers: "vērtība nav virkne ar veseliem skaitļiem"
+              not_a_list_of_strings: "vērtība nav virke ar vārdiem"
+              not_a_list_of_decimals: "vērtība nav virkne ar decimālskaitļiem"
+        system_settings/boolean_setting:
+          attributes:
+            value:
+              inclusion: "ir jābūt aizpildītam"
+  system_settings:
+    settings:
+      index:
+        no_settings: "Nav ierakstu"
+        add_new: "Jaunus ierakstus iespējams pievienot: <code>%{path}</code>"
+      show:
+        edit: Labot
+        back: Atpakaļ
+      form:
+        save: Saglabāt
+        back: Atpakaļ
+        hints_by_type:
+          "SystemSettings::StringListSetting": "Vairākas vērtības atdala ar <code>;</code> simbolu."
+          "SystemSettings::IntegerListSetting": "Vairākas vērtības atdala ar <code>;</code> simbolu."
+          "SystemSettings::DecimalListSetting": "Decimālskaitļu veselo skaitli no decimāldaļas atdala ar <code>.</code> simbolu. Vairākas vērtības atdala ar <code>;</code> simbolu."
