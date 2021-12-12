@@ -38,6 +38,8 @@ class SystemSettings::Test < ActiveSupport::TestCase
       original_value = SystemSettings.settings_file_path
       SystemSettings.settings_file_path = "/changed/path.rb"
       mock = MiniTest::Mock.new
+      # https://github.com/seattlerb/minitest/pull/824
+      skip("MiniTest::Mock.expect does not handle new Ruby's keyword arguments") if RbConfig::CONFIG["MAJOR"].to_i >= 3 && Gem::Version.new(MiniTest::VERSION) <= Gem::Version.new("5.14.4")
       mock.expect(:persist, nil) do |only:|
         only.empty?
       end
@@ -59,6 +61,8 @@ class SystemSettings::Test < ActiveSupport::TestCase
       original_value = SystemSettings.settings_file_path
       SystemSettings.settings_file_path = "/partial.rb"
       mock = MiniTest::Mock.new
+      # https://github.com/seattlerb/minitest/pull/824
+      skip("MiniTest::Mock.expect does not handle new Ruby's keyword arguments") if RbConfig::CONFIG["MAJOR"].to_i >= 3 && Gem::Version.new(MiniTest::VERSION) <= Gem::Version.new("5.14.4")
       mock.expect(:persist, nil) do |only:|
         only == [:one, :two]
       end
