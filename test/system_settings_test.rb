@@ -34,46 +34,44 @@ class SystemSettings::Test < ActiveSupport::TestCase
   end
 
   test "load" do
+    assert_raise(SystemSettings::Errors::NotFoundError) do
+      SystemSettings[:foo]
+    end
     begin
       original_value = SystemSettings.settings_file_path
-      SystemSettings.settings_file_path = "/changed/path.rb"
-      mock = MiniTest::Mock.new
-      # https://github.com/seattlerb/minitest/pull/824
-      skip("MiniTest::Mock.expect does not handle new Ruby's keyword arguments") if RbConfig::CONFIG["MAJOR"].to_i >= 3 && Gem::Version.new(MiniTest::VERSION) <= Gem::Version.new("5.14.4")
-      mock.expect(:persist, nil) do |only:|
-        only.empty?
-      end
-      from_file_method_proc = lambda do |path|
-        assert_equal "/changed/path.rb", path
-        mock
-      end
-      SystemSettings::Configurator.stub(:from_file, from_file_method_proc) do
-        SystemSettings.load
-      end
-      mock.verify
+      tempfile = Tempfile.new(%w[load-test .rb])
+      File.write tempfile.path, <<~RUBY
+        integer :foo, value: 123
+      RUBY
+      SystemSettings.settings_file_path = tempfile.path
+      SystemSettings.load
+      assert_equal 123, SystemSettings[:foo]
     ensure
       SystemSettings.settings_file_path = original_value
+      tempfile.close
     end
   end
 
   test "partial load" do
+    assert_raise(SystemSettings::Errors::NotFoundError) do
+      SystemSettings[:foo]
+    end
+    assert_raise(SystemSettings::Errors::NotFoundError) do
+      SystemSettings[:bar]
+    end
     begin
       original_value = SystemSettings.settings_file_path
-      SystemSettings.settings_file_path = "/partial.rb"
-      mock = MiniTest::Mock.new
-      # https://github.com/seattlerb/minitest/pull/824
-      skip("MiniTest::Mock.expect does not handle new Ruby's keyword arguments") if RbConfig::CONFIG["MAJOR"].to_i >= 3 && Gem::Version.new(MiniTest::VERSION) <= Gem::Version.new("5.14.4")
-      mock.expect(:persist, nil) do |only:|
-        only == [:one, :two]
+      tempfile = Tempfile.new(%w[partial-load-test .rb])
+      File.write tempfile.path, <<~RUBY
+        integer :foo, value: 123
+        integer :bar, value: 456
+      RUBY
+      SystemSettings.settings_file_path = tempfile.path
+      SystemSettings.load(:foo)
+      assert_equal 123, SystemSettings[:foo]
+      assert_raise(SystemSettings::Errors::NotFoundError) do
+        SystemSettings[:bar]
       end
-      from_file_method_proc = lambda do |path|
-        assert_equal "/partial.rb", path
-        mock
-      end
-      SystemSettings::Configurator.stub(:from_file, from_file_method_proc) do
-        SystemSettings.load(:one, :two)
-      end
-      mock.verify
     ensure
       SystemSettings.settings_file_path = original_value
     end
