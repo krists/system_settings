@@ -31,6 +31,9 @@ jobs:
         rails_61:
           RAILS_VERSION: 6.1.4.1
           SQLITE3_VERSION: 1.4.2
+        rails_70:
+          RAILS_VERSION: 7.0.0
+          SQLITE3_VERSION: 1.4.2
           SUBMIT_COVERAGE: true
         rails_master:
           RAILS_VERSION: master
