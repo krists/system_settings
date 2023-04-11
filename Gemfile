@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gemspec
 
+ruby ">= 3.0.0"
+
 rails_version = ENV.fetch("RAILS_VERSION", "master")
 
 rails = case rails_version

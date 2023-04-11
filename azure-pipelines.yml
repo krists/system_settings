@@ -41,7 +41,7 @@ jobs:
     steps:
     - task: UseRubyVersion@0
       inputs:
-        versionSpec: '~> 2.7'
+        versionSpec: '~> 3.0'
     - script: |
         sudo apt-get update
         sudo apt-get install libreadline-dev libsqlite3-dev

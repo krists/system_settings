@@ -8,17 +8,7 @@ require "system_settings"
 
 module Dummy
   class Application < Rails::Application
-    if config.respond_to?(:load_defaults)
-      config.load_defaults [Rails::VERSION::MAJOR, Rails::VERSION::MINOR].join(".")
-    else # Rails 5.0 does now have load_defaults method
-      config.action_controller.raise_on_unfiltered_parameters = true
-      config.action_controller.per_form_csrf_tokens = true
-      config.action_controller.forgery_protection_origin_check = true
-      ActiveSupport.to_time_preserves_timezone = true
-      config.active_record.belongs_to_required_by_default = true
-      ActiveSupport.halt_callback_chains_on_return_false = false
-      config.ssl_options = { hsts: { subdomains: true } }
-    end
+    config.load_defaults [Rails::VERSION::MAJOR, Rails::VERSION::MINOR].join(".")
     config.session_store :cookie_store, key: "system_settings_sid_#{Rails.env}"
     config.middleware.use ActionDispatch::Cookies # Required for all session management
     config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
