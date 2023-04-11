@@ -84,7 +84,7 @@ class CreateReadUpdateDeleteTest < ApplicationSystemTestCase
     assert_field "Value", with: "Example Company <noreply@example.com>"
     fill_in "Value", with: "", fill_options: { clear: :backspace }
     click_button "Save"
-    assert_text "can't be blank"
+    assert_text /can'|’t be blank/
     assert_equal "Example Company <noreply@example.com>", SystemSettings[:default_mail_from]
   end
 
