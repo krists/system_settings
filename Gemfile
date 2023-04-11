@@ -27,8 +27,8 @@ gem "sprockets-rails"
 
 gem "pry"
 gem "rubocop"
-gem "capybara", "~> 3.0", ">= 3.36.0"
-gem "selenium-webdriver", "~> 4.1", ">= 4.1.0"
-gem "webdrivers", "~> 5.0", ">= 5.0.0", require: false
-gem "puma", "~> 5.5.0", ">= 5.5.2"
-gem "simplecov", "~> 0.17.1", require: false
+gem "capybara", "~> 3.0", ">= 3.39.0"
+gem "selenium-webdriver", "~> 4.8", ">= 4.8.6"
+gem "webdrivers", "~> 5.2", ">= 5.2.0", require: false
+gem "puma", "~> 5.6.0", ">= 5.6.5"
+gem "simplecov", "~> 0.22.0", require: false
