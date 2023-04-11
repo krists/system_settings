@@ -10,7 +10,7 @@ module SystemSettings
       @record.value = nil
       refute @record.valid?
       assert @record.errors.include?(:value)
-      assert_equal ["can't be blank"],  @record.errors[:value]
+      assert_match /can'|’t be blank/, @record.errors[:value].first
     end
 
     test "value cast from non-string" do
